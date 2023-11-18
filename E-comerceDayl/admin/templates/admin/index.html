@@ -1,0 +1,93 @@
+{% extends "admin/layouts/partials/base.html" %}
+{% block title %}Administrador{% endblock title %}
+
+                <!-- Formulario de Categorías -->
+                <div id="categoria-form" class="form-container" style="display: none;">
+                    <form class="ui form">
+                        <h2 class="ui header">Categoría</h2>
+                        <hr>
+                        <div class="field">
+                            <div class="field">
+                                <div class="field">
+                                    <label for="">Imagen</label>
+                                    <input type="file" name="shipping[imagen]" placeholder="Imagen" required>
+                                </div>
+                                <div class="field">
+                                    <label>Nombre</label>
+                                    <input type="text" name="shipping[Nombre]" placeholder="Nombre" required
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                        maxlength="30">
+                                </div>
+                            </div>
+                            <div>
+                                <button class="ui black button" type="submit">Guardar</button>
+                            </div>
+                    </form>
+                </div>
+
+                <!-- Formulario de Subcategorías -->
+                <div id="subcategoria-form" class="form-container" style="display: none;">
+                    <form class="ui form">
+                        <h2 class="ui header">Subcategoría</h2>
+                        <hr>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Nombre</label>
+                                    <input type="text" name="Nombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="field">
+                                    <label>Categoría</label>
+                                    <select class="ui dropdown" name="Categoria" required>
+                                        <option value="" disabled selected>Selecciona la categoría</option>
+                                        <option value="JUGETERIA">JUGETERIA</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="ui black button" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Formulario de Proveedores -->
+                <div id="proveedor-form" class="form-container" style="display: none;">
+                    <form class="ui form">
+                        <h2 class="ui header">Proveedor</h2>
+                        <hr>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Ciudad</label>
+                                    <input type="text" name="Ciudad" placeholder="Ciudad" required>
+                                </div>
+                                <div class="field">
+                                    <label for="">Nombre completo</label>
+                                    <input type="text" name="Nombre_completo" placeholder="Nombre completo" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>NIT</label>
+                                <input type="text" name="nit" placeholder="NIT" required>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Correo electrónico</label>
+                                    <input type="text" name="email" placeholder="Correo electrónico" required>
+                                </div>
+                                <div class="field">
+                                    <label>Teléfono</label>
+                                    <input type="text" name="Telefono" placeholder="Teléfono" required>
+                                </div>
+                                <div class="field">
+                                    <label>Dirección</label>
+                                    <input type="text" name="Direccion" placeholder="Dirección" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="ui black button" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>

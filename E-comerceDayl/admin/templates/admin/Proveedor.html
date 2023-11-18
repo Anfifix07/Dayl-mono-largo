@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedor</title>
+    <link rel="stylesheet" href="css/semantic.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            min-height: 100vh;
+            background-color: #f1f1f1;
+        }
+
+        .form-container {
+            width: 50%;
+        }
+
+        .ui.form {
+            background-color: #f1f1f1;
+            padding: 40px;
+            height: 100%;
+        }
+
+        .ui.form .field {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <form class="ui form">
+            <h2 class="ui header">Proveedor</h2>
+            <hr>
+            <div class="field">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Ciudad</label>
+                        <input type="text" name="shipping[Ciudad]" placeholder="Ciudad" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="30">
+                    </div>
+                    <div class="field">
+                        <label for="">Nombre completo</label>
+                        <input type="text" name="shipping[Nombre_completo]" placeholder="Nombre completo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="60">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Nit</label>
+                <input type="number" name="nit" placeholder="Nit" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="15">
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>Correo electronico</label>
+                    <input type="text" name="email" placeholder="Correo electronico" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="200"> 
+                </div>
+                <div class="field">
+                    <label>Telefono</label>
+                    <input type="number" name="Telefono" placeholder="Telefono" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="13">
+                </div>
+                <div class="field">
+                    <label>Direccion</label>
+                    <input type="text" name="Direccion" placeholder="Direccion" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="50">
+                </div>
+            </div>
+                <div>
+                  <button class="ui black button" type="submit">Guardar</button>  
+                </div>
+        </form>
+        
+    </div>
+
+</body>
+
+</html>
