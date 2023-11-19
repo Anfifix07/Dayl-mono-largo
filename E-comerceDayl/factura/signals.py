@@ -37,5 +37,6 @@ def pedido_modificar(sender,instance, *args, **kwargs):
     fact.total = car_paypal['total_carrito']
     fact.cliente = instance.cliente
     fact.estado = 'Pagado'
+    fact.pedido = instance
     fact.save()
   

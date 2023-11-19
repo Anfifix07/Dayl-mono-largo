@@ -37,6 +37,7 @@ class Factura(models.Model):
   total = models.DecimalField(max_digits=15,decimal_places=2,null=True)
   cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
   estado = models.CharField(max_length=30,help_text="Estado del pedido")
+  pedido = models.ForeignKey(Pedidos,on_delete=models.SET_NULL,null=True)
   
   def __str__(self):
     return f'{self.id} cliente {self.Cliente.nombre}'
