@@ -65,7 +65,7 @@ def calcular_total_impuesto(acumulado, iva):
 def total_antes_iva(dict):
     total = 0
     for key, p in dict:
-        total+= p["precio"]
+        total+= p["precio"]*p['cantidad']
     return total
 
 #calcular iva tota
@@ -76,6 +76,6 @@ def iva_total(dict):
     
     for key, p in dict:
         iva = p["iva"]/100
-        total += iva * p["precio"]
+        total += iva * (p["precio"]*p['cantidad'])
     return round(total)
 

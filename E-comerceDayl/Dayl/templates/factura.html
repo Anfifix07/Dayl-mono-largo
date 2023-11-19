@@ -173,7 +173,9 @@
                             <ul class="vista">
                                 <li>Numero de factura {{factura.id}} </li>
                                 <li>fecha de factura {{ factura.fecha_factura }} </li>
-                                <li>fecha de vencimiento {{factura.fecha_vencimiento}} </li>
+                                {% if factura.fecha_vencimiento %}
+                                <li>fecha de vencimiento {{factura.fecha_vencimiento}}</li>
+                                {% endif %}
                             </ul>
                         </td>
                     </tr>
@@ -194,7 +196,7 @@
                             <tbody>
                                 <tr>
                                     <td>Razon social / Nombre :</td>
-                                    <td> Variedades Dayl </td>
+                                    <td>Variedades Dayl </td>
                                 </tr>
                                 <tr>
                                     <td>NIT</td>
@@ -222,7 +224,7 @@
                             <tbody>
                                 <tr>
                                     <td>Razon social / Nombre :</td>
-                                    <td>{{cliente.name}}</td>
+                                    <td style="width: 70%;">{{cliente.nombre}}</td>
                                 </tr>
                                 <tr>
                                     <td>NIT</td>
@@ -230,7 +232,7 @@
                                 </tr>
                                 <tr>
                                     <td>Direccion:</td>
-                                    <td>{{cliente.ciudad}} / {{cliente.tipo_via}} {{cliente.numero}} </td>
+                                    <td>{{cliente.ciudad}} / {{cliente.tipo_via}} {{cliente.numero}} #{{cliente.complemento}} </td>
                                 </tr>
                                 <tr>
                                     <td>Telefono:</td>
@@ -275,7 +277,7 @@
                         <td>{{p.iva}}</td>
                         <td>{% calcular_total_impuesto p.precio p.iva %}</td>
                         <td>{{p.oferta}}</td>
-                        <td>{{p.valor}}</td>
+                        <td>{{p.acumulado}}</td>
                     </tr>
                     
                         
