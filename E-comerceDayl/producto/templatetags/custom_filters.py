@@ -54,3 +54,28 @@ def first_letter(value):
     for i in value:
         if i.isalpha():
             return i.upper()
+        
+#para calcular los impuestos
+@register.simple_tag
+def calcular_total_impuesto(acumulado, iva):
+    return round(acumulado * (iva/100))
+
+#sumar todos los totales del producto antes de iva
+@register.simple_tag
+def total_antes_iva(dict):
+    total = 0
+    for key, p in dict:
+        total+= p["precio"]
+    return total
+
+#calcular iva tota
+
+@register.filter
+def iva_total(dict):
+    total = 0
+    
+    for key, p in dict:
+        iva = p["iva"]/100
+        total += iva * p["precio"]
+    return round(total)
+

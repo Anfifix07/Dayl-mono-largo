@@ -61,3 +61,21 @@ def paypal_return(request):
 def paypal_cancel(request):
   messages.error(request,'Payment Cancelled')
   return redirect('index')
+
+def mostrar_factura(request, id_factura):
+  factura= Factura.objects.get(id = id_factura)
+  cliente = Cliente.objects.get(id = factura.cliente.id)
+  
+  ruta_json = os.path.join(settings.MEDIA_ROOT, factura.pedido.productos.name)
+  with open(ruta_json, 'r') as archivo_json:
+    contenido_json = archivo_json.read()
+     
+  productos_dict = json.loads(contenido_json)
+  print("ver aver", productos_dict)
+  context = {
+    'factura':factura,
+    'productos':productos_dict.items(),
+    'cliente': cliente
+  }
+  return render(request, 'factura.html', context )
+  
