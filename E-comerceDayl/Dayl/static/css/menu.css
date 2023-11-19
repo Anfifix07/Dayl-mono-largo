@@ -25,7 +25,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    z-index: 1000;
+    z-index: 10;
 }
 
 /**logo*/
@@ -195,7 +195,6 @@ img .carro.compras.miniatura{
     }
     .nav-superior {
         display: flex;
-        justify-content: flex-start;
         align-items: center;
         padding: 10px 20px;
         background-color: #fff;
@@ -270,7 +269,6 @@ img .carro.compras.miniatura{
         position: relative;
         left: 20;
         text-align: center;
-        justify-content: flex-start;
     }
     .header-menu label {
         display: initial;
