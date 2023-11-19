@@ -71,7 +71,6 @@ def mostrar_factura(request, id_factura):
     contenido_json = archivo_json.read()
      
   productos_dict = json.loads(contenido_json)
-  print("ver aver", productos_dict)
   context = {
     'factura':factura,
     'productos':productos_dict.items(),
