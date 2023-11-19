@@ -31,7 +31,10 @@ SECRET_KEY = 'django-insecure-oh9^r^h2phvgydssr_%aq8+ba*zan)d*t7j$vz7#en%865swx+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+    "https://85d3-2800-484-de78-db00-a7a1-f658-1b77-91db.ngrok-free.app",
+    ]
 
 
 # Application definition
@@ -47,13 +50,16 @@ INSTALLED_APPS = [
     'cliente.apps.ClienteConfig',
     'factura.apps.FacturaConfig',
     'paypal.standard.ipn',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -130,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
@@ -146,6 +152,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'admin','static'),
 ]
 
+JSON_ROOT = os.path.join(BASE_DIR, 'json_files')
+JSON_URL = '/json/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -158,3 +167,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #-#--Paypal settings--#-#
 PAYPAL_TEST = True
 PAYPAL_RECEIVER_EMAIL = ENV('PAYPAL_RECEIVER_EMAIL')
+
+#-#--Cors settings--#-#
+
+CSRF_TRUSTED_ORIGINS = [
+     "https://85d3-2800-484-de78-db00-a7a1-f658-1b77-91db.ngrok-free.app",
+]
+CORS_ALLOWED_ORIGINS = [
+    "https://85d3-2800-484-de78-db00-a7a1-f658-1b77-91db.ngrok-free.app",
+    "http://localhost:3000",  # O la URL de tu frontend en desarrollo
+    "http://localhost:8000",  # O la URL de tu backend en desarrollo
+    "http://127.0.0.1:8000",
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]

@@ -4,7 +4,8 @@ if (validateFormLogin(form)) {
     form.submit();
 }
 });
-document.getElementById('registro-button').addEventListener("click", function(){
+
+document.getElementById('registro-button derecha').addEventListener("click", function(){
 var person_type = document.getElementById('person-type').value;
 var form = document.getElementById('registro-form-'+person_type);
 

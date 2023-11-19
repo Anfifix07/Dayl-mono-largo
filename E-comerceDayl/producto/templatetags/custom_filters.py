@@ -3,6 +3,9 @@ from django import template
 register = template.Library()
 
 @register.filter
+def mayus_inicial(value):
+    return str(value[0]).upper()+str(value[1::])
+@register.filter
 def capitalice(value):
     return value.upper()
 
