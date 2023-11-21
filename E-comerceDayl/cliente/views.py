@@ -9,6 +9,8 @@ from .models import Cliente
 from django.forms import ValidationError
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
+from factura.models import *
+from django.contrib.auth.forms import UserChangeForm
 # Create your views here.
 @ajax_request_required
 def index(request):
@@ -73,3 +75,32 @@ def clogout(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect("index")
+
+
+def mostrar_factura_cliente(request):
+    cliente = Cliente.objects.get(user=request.user)
+    factura = Factura.objects.get(cliente=cliente)
+    context ={
+        'factura':factura
+    }
+    return render(request, 'facturaCliente.html', context)
+@login_required
+def modificar_cliete(request):
+    cliente = Cliente.objects.get(user=request.user)
+    form = Registro(request.POST)
+    if request.method =='POST':
+        contraseña_ing = request.POST.get('verifi_cliente')
+        if check_password(contraseña_ing, request.user.password):
+            for field_name, field in form.fields.items(): 
+                valor=form[field_name].value()
+                if valor != None:
+                    setattr(cliente, field_name, valor)
+                    
+            cliente.save()
+            
+    return render(request, 'modificar_datos.html', {'form':form})
+            
+#print(f"{field_name}:{form[field_name].value()}")
+#{field.widget.attrs.get('nombre')}
+                
+    

@@ -224,6 +224,12 @@ img .carro.compras.miniatura{
     }
 }
 
+/*configuraciones del html de configuraciones del cliente*/
+.container_factura{
+    display: grid;
+    margin: 0;
+    right: 50px;
+}
 
 
 @media (max-width: 1000px){
