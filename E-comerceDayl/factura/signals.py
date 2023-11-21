@@ -8,6 +8,7 @@ import json
 import os
 from django.conf import settings
 
+
 @receiver(valid_ipn_received)
 def valid_ipn_signal(sender, **kwargs):
   ipn_obj = sender
@@ -15,6 +16,7 @@ def valid_ipn_signal(sender, **kwargs):
     pedido = Pedidos.objects.get(id=ipn_obj.invoice)
     pedido.estado = True
     pedido.save()
+       
         
 @receiver(invalid_ipn_received)
 def invalid_ipn_signal(sender, **kwargs):
@@ -23,7 +25,8 @@ def invalid_ipn_signal(sender, **kwargs):
     pedido = Pedidos.objects.get(id=ipn_obj.invoice)
     pedido.estado = True
     pedido.save()
-    
+
+
 @receiver(post_save, sender=Pedidos)
 def pedido_modificar(sender,instance, *args, **kwargs):
   if instance.estado == True:
@@ -39,4 +42,3 @@ def pedido_modificar(sender,instance, *args, **kwargs):
     fact.estado = 'Pagado'
     fact.pedido = instance
     fact.save()
-  
