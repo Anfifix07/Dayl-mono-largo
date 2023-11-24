@@ -1,104 +1,160 @@
+{% extends "admin/layouts/partials/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/semantic.css' %}">
-    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
-    <title>Document</title>
-</head>
-<body>
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock head %}
+{% block container %}
+<div class="contenedor-formulario">
     <form action="" method="POST" id="form" class="ui form">
         {% csrf_token %}
-        
+
         <div class="container_factura">
-            <div class="fields">
-                <div class="field">
-                    <label for="">Nombre <i variable="nombre" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Telefono <i variable="telefono" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">ciudad <i variable="ciudad" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Tipo de persona <i variable="tipo_persona" class="pencil icon"></i></label>
-                </div>
-            </div>
-    
-            <div class="fields">
-                <div class="field">
-                    <label for="">Nit <i variable="nit" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Departamento <i variable="departamento" class="pencil icon"></i></label>
-                </div>
-            </div>
-    
-            <div class="fields">
-                <div class="field">
-                    <label for="">Tipo de via <i variable="tipo_via" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Numero <i variable="numero" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Complemento <i variable="complemento" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Casa o apartamento <i variable="casa_apto" class="pencil icon"></i></label>
-                </div>
-            </div>
-            <div class="fields">
-                <div class="field">
-                    <label for="">Descripcion <i variable="descripcion" class="pencil icon"></i></label>
-                </div>
-            </div>
-    
-            <div class="fields">
-                <div class="field">
-                    <label for="">Correo electronico <i variable="correo_electronico" class="pencil icon"></i></label>
-                </div>
-                <div class="field">
-                    <label for="">Contraseña <i variable="contraseña" class="pencil icon"></i></label>
-                </div>
-                
-            </div>
-            
-        </div>
-        <div class="fields">
+            <div class="field"><h1>Informacion Basica</h1></div>
             <div class="field">
-                <label for="">digite su cntrasea para guardar los cambios</label>
+                <label for="">Nombre:</label>
+                <div class="field-fixed">
+                    <p class="span-config">{{ cliente.nombre }}</p><i variable="nombre" class="pencil icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label for="">Telefono:</label>
+                <div class="field-fixed">
+                    <p class="span-config">{{ cliente.telefono }}</p><i variable="telefono" class="pencil icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label for="">Ciudad:</label>
+                <div class="field-fixed">
+                    <p class="span-config">{{ cliente.ciudad }}</p><i variable="ciudad" class="pencil icon"></i>
+                </div>
+            </div>
+
+            <div class="two fields">
+                <div class="field">
+                    <label for="">Nit / C.c:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ cliente.nit }}</p><i variable="nit" class="pencil icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="">Departamento:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ cliente.departamento }}</p><i variable="departamento" class="pencil icon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field"><h1>Direccion</h1></div>
+
+            <div class="four fields">
+                <div class="field">
+                    <label for="">Tipo de via:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ cliente.tipo_via }}</p><i variable="tipo_via" class="pencil icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="">Numero:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ cliente.numero }}</p><i variable="numero" class="pencil icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="">Complemento:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ cliente.complemento }}</p><i variable="complemento" class="pencil icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="">Apto / Oficina:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ cliente.casa_apto }}</p><i variable="casa_apto" class="pencil icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="">Descripcion:</label>
+                <div class="field-fixed">
+                    <p class="span-config">{{ cliente.descripcion }}</p><i variable="descripcion" class="pencil icon"></i>
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label for="">Correo electronico:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">{{ user.email }}</p><i variable="correo_electronico" class="pencil icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="">Contraseña:</label>
+                    <div class="field-fixed">
+                        <p class="span-config">*********</p><i variable="contraseña" class="pencil icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="field" style="text-align: center;">
+                <label for="">Digite su contraseña para salvar los cambios</label>
                 <input type="password" name="verifi_cliente" id="">
-                <input type="submit" value="actualizar">
+                <button class="ui button" style="margin-top:20px ;" type="submit">Actualizar</button>
             </div>
         </div>
-            
     </form>
-    <script>
-        var acciones = document.querySelectorAll('i');
-        
-        acciones.forEach(element => {
-            element.addEventListener('click', function () {
-                if (document.getElementsByName(element.getAttribute("variable")).length === 0) {
-                    alert("hduahfbhdsbi");
-                    const inputName = document.createElement('input');
-                    inputName.name = element.getAttribute("variable");
-                    inputName.className = '';
-                    if (element.getAttribute("variable") === 'contraseña') {
-                        inputName.setAttribute('type', 'password');
-                    } else {
-                        inputName.setAttribute('type', 'text');
-                    }
-                    
-                    element.parentNode.appendChild(inputName);
-    
-                    console.log(document.getElementsByName(element.getAttribute("variable")));
+</div>
+
+{% endblock container %}
+
+{% block script %}
+<script>
+    var acciones = document.querySelectorAll('i.pencil.icon');
+
+    acciones.forEach(element => {
+        element.addEventListener('click', function () {
+            if (document.getElementsByName(element.getAttribute("variable")).length === 0) {
+                const inputName = document.createElement('input');
+                inputName.name = element.getAttribute("variable");
+                inputName.className = '';
+                if (element.getAttribute("variable") === 'contraseña') {
+                    inputName.setAttribute('type', 'password');
+                }else {
+                    inputName.setAttribute('type', 'text');
                 }
-            });
+                const padre = element.parentElement;
+                hijo = padre.children[0]
+                console.log(hijo.innerHTML)
+                const abuelo = padre.parentElement;
+                padre.remove();
+                if(element.getAttribute("variable") === 'tipo_via') {
+                    const select = document.createElement('select');
+                        select.name = element.getAttribute("variable");
+                    const opt1 = document.createElement('option');
+                        opt1.value = "CRR"
+                        opt1.innerHTML = 'Carrera';
+                    const opt2 = document.createElement('option');
+                        opt2.value = "CLL"
+                        opt2.innerHTML = 'Calle';
+                    const opt3 = document.createElement('option');
+                        opt3.value = "AV"
+                        opt3.innerHTML = 'Avenida';
+                    const opt4 = document.createElement('option');
+                        opt4.value = "DG"
+                        opt4.innerHTML = 'Diagonal';
+                    const opt5 = document.createElement('option');
+                        opt5.value = "TV"
+                        opt5.innerHTML = 'Transversal';
+
+                    select.appendChild(opt1);
+                    select.appendChild(opt2);
+                    select.appendChild(opt3);
+                    select.appendChild(opt4);
+                    select.appendChild(opt5);
+                    abuelo.appendChild(select);
+                }else{
+                    inputName.setAttribute('value', hijo.innerHTML);
+                    abuelo.appendChild(inputName);
+                }
+                
+            }
         });
-    </script>
-</body>
-</html>
+    });
+</script>
+{% endblock script %}

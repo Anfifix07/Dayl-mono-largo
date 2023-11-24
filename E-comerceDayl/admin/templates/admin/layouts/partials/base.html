@@ -25,6 +25,7 @@
           <a href="{% url 'admin:producto' %}"><li {% if url == 'producto'  %}class="activo"{% endif %}><i class="icon dropbox"></i><span class="ocultar responsive-span">PRODUCTOS</span></li></a>
           <a href="{% url 'admin:color' %}"><li {% if url == 'color'  %}class="activo"{% endif %}><i class="icon paint brush"></i><span class="ocultar responsive-span">P. COLOR</span></li></a>
           <a href="#"><li {% if url == ''  %}class="activo"{% endif %}><i class="users icon"></i><span class="ocultar responsive-span">PROVEEDORES</span></li></a>
+          <a href="{% url 'cliente:config' %}"><li {% if url == 'configuracion'  %}class="activo"{% endif %}><i class="cogs icon"></i><span class="ocultar responsive-span">CONFIGURACION PERFIL</span></li></a>
         </ul>
       </div>
       <a href=""><div class="salida"><i class="sign-out icon"></i><span class="ocultar">logout</span></div></a>

@@ -91,14 +91,24 @@ def modificar_cliente(request):
     if request.method =='POST':
         contraseña_ing = request.POST.get('verifi_cliente')
         if check_password(contraseña_ing, request.user.password):
-            for field_name, field in form.fields.items(): 
+            for field_name, field in form.fields.items():
                 valor=form[field_name].value()
-                if valor != None:
-                    setattr(cliente, field_name, valor)
-                    
-            cliente.save()
-            
-    return render(request, 'configuracion.html', {'form':form})
+                if valor is not None:
+                    if field_name.lower() not in ['contraseña', 'correo_electronico']:
+                        setattr(cliente, field_name, valor)
+                        print('ppp')
+                    elif field_name.lower() == 'contraseña':
+                        request.user.set_password(valor)
+                        print('ccc')
+                    elif field_name.lower() == 'correo_electronico':
+                        print(valor)  # Aquí podrías validar y procesar el nuevo correo electrónico si es necesario
+                        request.user.username = valor  # Cambio de username si lo deseas
+                        request.user.email = valor
+                        
+                    request.user.save()
+                    cliente.save()
+                    messages.success(request,'Los cambios se han realizado con exito')
+    return render(request, 'modificar_dato1s.html', {'form':form,'cliente':cliente})
             
 #print(f"{field_name}:{form[field_name].value()}")
 #{field.widget.attrs.get('nombre')}

@@ -200,3 +200,26 @@ span.user.redirect {
 .ui.dropdown > .menu {
     margin: 0em 3em 0em 0em!important;
 }
+
+
+/*Configuracion de Perfil*/
+.field{
+  margin-top: 20px!important;
+}
+.span-config{
+  font-family: 'Montserrat-Bold';
+  font-size: 15px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}
+.field-fixed{
+  display: flex;
+  align-items: center;
+}
+.contenedor-formulario{
+  width: 80%;
+  margin: 40px auto 0;
+}
+.contenedor-formulario > p{
+  margin: 0px!important;
+}
