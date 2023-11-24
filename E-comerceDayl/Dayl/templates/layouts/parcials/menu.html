@@ -11,24 +11,27 @@
         </div>
         <div class="user-buttons">
             {% if user.is_authenticated %}
-                {% if user.is_superuser %}
-                <div class="ui right pointing dropdown left-margin">
-                    <span class="user redirect">{{ user.username|first_letter }}</span>
-                    <div class="menu" style="z-index: 50;">
-                        <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
-                        <a href="{% url 'admin:index' %}" class="floating labeled icon item"><i class="wrench icon"></i>Administracion</a>
-                        <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i class="user times icon"></i>Desconectar</a>
-                    </div>
+            {% if user.is_superuser %}
+            <div class="ui right pointing dropdown left-margin">
+                <span class="user redirect">{{ user.username|first_letter }}</span>
+                <div class="menu" style="z-index: 50;">
+                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+                    <a href="{% url 'admin:index' %}" class="floating labeled icon item"><i
+                            class="wrench icon"></i>Administracion</a>
+                    <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
+                            class="user times icon"></i>Desconectar</a>
                 </div>
-                {% else %}
-                <div class="ui right pointing dropdown left-margin">
-                    <span class="user redirect">{{ user.username|first_letter }}</span>
-                    <div class="menu" style="z-index: 50;">
-                        <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
-                        <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i class="user times icon"></i>Desconectar</a>
-                    </div>
+            </div>
+            {% else %}
+            <div class="ui right pointing dropdown left-margin">
+                <span class="user redirect">{{ user.username|first_letter }}</span>
+                <div class="menu" style="z-index: 50;">
+                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+                    <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
+                            class="user times icon"></i>Desconectar</a>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% else %}
             <button class="blue-button out" id="login-btn"><a href="#">Iniciar sesión</a></button>
             <!--aca va el hipervinculo para el registro-->
@@ -112,8 +115,10 @@
                             </div>
                             <div class="row">
                                 <div class="three wide column"></div>
-                                <div class="five wide column"><a href="{% url 'buycar:vaciar_carrito' %}"><button
-                                            class="ui icon button"><i class="icon trash"></i></button></a></div>
+                                <div class="five wide column">
+                                    <a href="{% url 'buycar:vaciar_carrito' %}">
+                                        <button class="ui icon button"><i class="icon trash"></i></button>
+                                    </a></div>
                                 <div class="five wide column"></div>
                                 <div class="three wide column"></div>
                             </div>

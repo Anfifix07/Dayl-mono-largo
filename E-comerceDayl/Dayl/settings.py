@@ -73,6 +73,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR,'Dayl','templates'),
             os.path.join(BASE_DIR,'admin','templates'),
+            os.path.join(BASE_DIR, 'cliente','templates')
             ],
         'APP_DIRS': True,
         'OPTIONS': {

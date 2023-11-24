@@ -85,7 +85,7 @@ def mostrar_factura_cliente(request):
     }
     return render(request, 'facturaCliente.html', context)
 @login_required
-def modificar_cliete(request):
+def modificar_cliente(request):
     cliente = Cliente.objects.get(user=request.user)
     form = Registro(request.POST)
     if request.method =='POST':
@@ -98,7 +98,7 @@ def modificar_cliete(request):
                     
             cliente.save()
             
-    return render(request, 'modificar_datos.html', {'form':form})
+    return render(request, 'configuracion.html', {'form':form})
             
 #print(f"{field_name}:{form[field_name].value()}")
 #{field.widget.attrs.get('nombre')}

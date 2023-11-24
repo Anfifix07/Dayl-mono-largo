@@ -2,107 +2,78 @@
 {% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'admin/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/css/semantic.css' %}">
-    {% block head %}{% endblock head %}
-    <title>{% block title %}{% endblock title %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'admin/css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/css/semantic.css' %}">
+  {% block head %}
+  {% endblock head %}
+  <title>Menu_configuraciones</title>
 </head>
 
-<body>
-    <nav class="open">
-        <div class="open">
-            <div class="logo-image">
-                <a href="{% url 'index' %}"><img src="{% static 'admin/img/logo dayl.png' %}" alt="" class="menu-logo"></a>
-            </div>
+<body style="background-color: white;">
+  <div class="contenedor-configuracion">
+    <div class="menu-izq">
+      <div>
+        <img src="{% static 'admin/img/logo dayl.png' %}" id="logo" alt="">
+        <ul>
+          <a href="{% url 'admin:index' %}"><li {% if url == 'inicio'  %}class="activo"{% endif %}><i class="icon home"></i><span class="ocultar responsive-span">INICIO</span></li></a> 
+          <a href="{% url 'admin:categoria' %}"><li {% if url == 'categoria'  %}class="activo"{% endif %}><i class="icon boxes"></i><span class="ocultar responsive-span">CATEGORIAS</span></li></a>
+          <a href="{% url 'admin:subcategoria' %}"><li {% if url == 'subcategoria'  %}class="activo"{% endif %}><i class="icon buromobelexperte"></i><span class="ocultar responsive-span">SUBCATEGORIAS</span></li></a>
+          <a href="{% url 'admin:producto' %}"><li {% if url == 'producto'  %}class="activo"{% endif %}><i class="icon dropbox"></i><span class="ocultar responsive-span">PRODUCTOS</span></li></a>
+          <a href="{% url 'admin:color' %}"><li {% if url == 'color'  %}class="activo"{% endif %}><i class="icon paint brush"></i><span class="ocultar responsive-span">P. COLOR</span></li></a>
+          <a href="#"><li {% if url == ''  %}class="activo"{% endif %}><i class="users icon"></i><span class="ocultar responsive-span">PROVEEDORES</span></li></a>
+        </ul>
+      </div>
+      <a href=""><div class="salida"><i class="sign-out icon"></i><span class="ocultar">logout</span></div></a>
+    </div>
+    <div class="contenido-central">
+      <div class="menu-centro">
+        <div id="icon-izquierdo"><i class="bars icon" style="font-size: 20px;"></i></div>
+        <div id="input-centro" class="ui icon input">
+          <input type="text" placeholder="Search...">
+          <i class="search link icon"></i>
         </div>
-
-        <div class="menu-items">
-            <ul class="navLinks">
-                <li class="navList {% if url == 'inicio' %}active{% endif %}">
-                    <a href="{% url 'admin:index' %}">
-                        <i class="home icon"></i>
-                        <span class="links">INICIO</span>
-                    </a>
-                </li>
-                <li class="navList {% if url == 'categoria' %}active{% endif %}">
-                    <a href="{% url 'admin:categoria' %}">
-                        <i class="cubes icon"></i>
-                        <span class="links">CATEGORIAS</span>
-                    </a>
-                </li>
-                <li class="navList {% if url == 'subcategoria' %}active{% endif %}">
-                    <a href="{% url 'admin:subcategoria' %}">
-                        <i class="window restore outline icon"></i>
-                        <span class="links">SUBCATEGORIAS</span>
-                    </a>
-                </li>
-                <li class="navList {% if url == 'producto' %}active{% endif %}">
-                    <a href="{% url 'admin:producto' %}">
-                        <i class="shopping bag icon"></i>
-                        <span class="links">PRODUCTOS</span>
-                    </a>
-                </li>
-                <li class="navList {% if url == 'color' %}active{% endif %}">
-                    <a href="{% url 'admin:color' %}">
-                        <i class="spinner icon"></i>
-                        <span class="links">P. COLOR</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0);">
-                        <i class="address book icon"></i>
-                        <span class="links">PROVEEDORES</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="bottom-link">
-                <li>
-                    <a href="{% url 'cliente:logout' %}">
-                        <i class="unlock icon"></i>
-                        <span class="links">Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="dashboard">
-        <div class="top">
-            <ion-icon class="navToggle" name="menu-outline"></ion-icon>
-            <div class="searchBox">
-                <ion-icon name="search-outline"></ion-icon>
-                <input type="text" placeholder="Search">
-            </div>
-            <span>{{ user.username|first_letter }}</span>
-        </div>
-        <div class="container">
-            <div class="overview">
-                <div id="inicio-form" class="form-container" style="display: none;">
-                    <form class="ui form">
-                        <h2 class="ui header">Inicio</h2>
-                        <hr>
-                        <div class="field">
-                        </div>
-                    </form>
+        {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+            <div class="ui right pointing dropdown">
+                <span class="user redirect">{{ user.username|first_letter }}</span>
+                <div class="menu" style="z-index: 50;">
+                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+                    <a href="{% url 'admin:index' %}" class="floating labeled icon item"><i
+                            class="wrench icon"></i>Administracion</a>
+                    <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
+                            class="user times icon"></i>Desconectar</a>
                 </div>
-                {% block container %}
-                  
-                {% endblock container %}
             </div>
-        </section>
-    
+            {% else %}
+            <div class="ui right pointing dropdown">
+                <span class="user redirect">{{ user.username|first_letter }}</span>
+                <div class="menu" style="z-index: 50;">
+                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+                    <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
+                            class="user times icon"></i>Desconectar</a>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+      </div>
+    {% block container %}
         
-    </body>
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
-        <script src="{% static 'admin/js/alertas.js' %}"></script>
-        {% block script %}
-          
-        {% endblock script %}
-    </html>
+    {% endblock container %}
+    </div>
+  </div>
+</body>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/semantic.js' %}"></script>
+<script src="{% static 'admin/js/alertas.js' %}"></script>
+<script src="{% static 'admin/js/menu-configuracion.js' %}"></script>
+<script>
+    $('.ui.dropdown')
+        .dropdown();
+</script>
+{% block script %}
+{% endblock script %}
+</html>

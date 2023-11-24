@@ -1,29 +1,10 @@
 const names = document.querySelector(".names")
 const email = document.querySelector(".email")
 const joined = document.querySelector(".joined")
-const navBar = document.querySelector("nav")
-const navToggle = document.querySelector(".navToggle")
-const navLinks = document.querySelectorAll(".navList")
-const darkToggle = document.querySelector(".darkToggle")
 const body = document.querySelector("body")
-
-
-navToggle.addEventListener('click', () => {
-    navBar.classList.toggle('close');
-    const logoImage = document.querySelector('.menu-logo');
-    logoImage.classList.toggle('menu-logo-small');
-})
-
-navLinks.forEach(function (element) {
-    element.addEventListener('click', function () {
-        navLinks.forEach((e) => {
-            e.classList.remove('active')
-            this.classList.add('active')
-        })
-    })
-})
 const imagenTexto = document.getElementById('id_imagen_texto');
 const imagenFile = document.getElementById('id_imagen');
+
 document.getElementById('disparador-input').addEventListener('click',function(){
     imagenFile.setAttribute('name', 'imagen');
     imagenFile.required = true;

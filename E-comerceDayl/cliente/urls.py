@@ -9,5 +9,5 @@ urlpatterns = [
     path('',views.index,name="probando"),
     path('login',views.login,name="login"),
     path('logout',views.clogout,name="logout"),
-    path('config/', views.modificar_cliete, name="config")
+    path('config/', views.modificar_cliente, name="config")
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
