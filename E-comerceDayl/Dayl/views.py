@@ -8,10 +8,8 @@ def index(request):
     subcategorias = Subcategoria.objects.all()
     productos = Producto.objects.filter(estado=True)
     k = 0
-    return render(request, 'index.html',{"categorias": categorias,
-                                         "subcategorias": subcategorias,
-                                         "productos": productos,
-                                         "k": k,})
+    context = {"categorias": categorias,"subcategorias": subcategorias,"productos": productos,"k": k,}
+    return render(request, 'index.html',context)
 def obtener_imagen_color(request):
     color_id = request.GET.get('colorId')
     try:

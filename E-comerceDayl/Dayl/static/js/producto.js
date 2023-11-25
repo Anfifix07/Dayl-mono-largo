@@ -10,8 +10,6 @@ color_imagen.addEventListener('change', function() {
 function input_sum() {
     var cantidadInput = document.getElementById('quantity-input');
     var cantidad = cantidadInput.value;
-    
-    // Obtén el atributo 'data-producto-cantidad' del elemento con el ID 'Cantidad_actualizada_ajax'
     var cantidad_max = document.getElementById('Cantidad_actualizada_ajax').getAttribute('data-producto-cantidad');
     
     if (parseInt(cantidad) < parseInt(cantidad_max)) {

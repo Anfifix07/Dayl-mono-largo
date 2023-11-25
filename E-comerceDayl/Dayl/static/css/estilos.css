@@ -375,7 +375,7 @@ header {
     display: flex;
     align-items: center;
 }
-
+/*dsfd*/
 .nav-superior .user-buttons button {
     color: #fff !important;
     background-color: #5EA0FF;
@@ -1402,10 +1402,6 @@ div.dropdown-content > div.ui.grid.container{
     align-items: center;
     justify-content: space-around;
   }
-  .contenedor.sub.carrito.general {
-
-   /*saque lo que estaba aqui y lo pase a la linea 1130*/
-  }
   
   .total-carrito {
     background-color: #13afef;
@@ -1419,6 +1415,10 @@ div.dropdown-content > div.ui.grid.container{
 /*Clases modificadas de semantic*/
 h2.ui.header {
     z-index: 5;
+}
+
+.ui.right.pointing.dropdown > .menu {
+    margin: 0em 3em 0em 0em!important;
 }
 
 /* Menu del Detalles de compra */
@@ -1438,4 +1438,23 @@ div.detalle-compra {
 
 table.tabla-detalle-compra{
     margin-top: 60px!important;
+}
+
+/** CSS PARA EL MANEJO DE SETTINGS DE USUARIO **/
+
+span.user.redirect {
+    height: 40px;
+    width: 40px;
+    background-color: #13afef;
+    border-radius: 50%;
+    font-family: Montserrat-Bold;
+    font-size: xx-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+}
+
+.left-margin {
+    margin-left: 10px;
 }

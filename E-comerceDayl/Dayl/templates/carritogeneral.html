@@ -10,8 +10,6 @@
 {% endblock head %}
 {% block content %}
 {% if request.session.carrito.items %}
-
-    
         <div class="ui grid container" id="contenedor-car-general">
             <div class="row blue">
                 <div class="six wide column"><h3 class="letra-bold">PRODUCTO</h3></div>
@@ -123,7 +121,7 @@
                 <tr>
                     <td colspan="3" style="text-align: center;">
                         <div class="finish-button">
-                            <button class="ui primary button" style="width: 60%; margin: 0 auto;">Finalizar Compra</button>
+                            <a href="{% url 'factura:detalle_compra' %}"><button class="ui primary button" style="width: 60%; margin: 0 auto;">Finalizar Compra</button></a>
                         </div>
                     </td>
                 </tr>

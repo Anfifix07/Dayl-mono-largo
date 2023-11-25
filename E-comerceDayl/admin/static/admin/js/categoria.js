@@ -6,24 +6,10 @@ const navToggle = document.querySelector(".navToggle")
 const navLinks = document.querySelectorAll(".navList")
 const darkToggle = document.querySelector(".darkToggle")
 const body = document.querySelector("body")
-
-
-navToggle.addEventListener('click', () => {
-    navBar.classList.toggle('close');
-    const logoImage = document.querySelector('.menu-logo');
-    logoImage.classList.toggle('menu-logo-small');
-})
-
-navLinks.forEach(function (element) {
-    element.addEventListener('click', function () {
-        navLinks.forEach((e) => {
-            e.classList.remove('active')
-            this.classList.add('active')
-        })
-    })
-})
 const imagenTexto = document.getElementById('id_imagen_texto');
 const imagenFile = document.getElementById('id_imagen');
+
+
 document.getElementById('disparador-input').addEventListener('click',function(){
     imagenFile.setAttribute('name', 'imagen');
     imagenFile.required = true;
@@ -54,8 +40,8 @@ function editarColor(id_categoria){
         success: function(data) {
             var categoriaJSON = data.categoria;
             var categoria = JSON.parse(categoriaJSON)[0].fields;
-            document.getElementById('contenedor_colores').setAttribute('style', 'display: none')//Aqui va el id de la tabla de los productos
-            document.getElementById('boton_registro_producto').setAttribute('style', 'display: none');//El botón para abrir el formulario de registro
+            document.getElementById('contenedor_colores').setAttribute('style', 'display: none');
+            document.getElementById('boton_registro_producto').setAttribute('style', 'display: none');
             var formulario = document.getElementById('categoria_form');
             formulario.setAttribute('style', 'display: block;');
             formulario.querySelector('.ui.form').setAttribute('action', '/admin/categoria/edit/'+id_categoria)
