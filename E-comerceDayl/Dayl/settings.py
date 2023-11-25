@@ -164,6 +164,14 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#para enviar el mesaje de confirmacion
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dayl.medellin.antioquia@gmail.com'
+EMAIL_HOST_PASSWORD = 'ztmfcetxfhqlvwka'
+EMAIL_USE_TLS = True
 
 #-#--Paypal settings--#-#
 PAYPAL_TEST = True
@@ -191,3 +199,6 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+
+ 

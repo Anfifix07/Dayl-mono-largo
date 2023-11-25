@@ -31,12 +31,24 @@
       <a href=""><div class="salida"><i class="sign-out icon"></i><span class="ocultar">logout</span></div></a>
     </div>
     <div class="contenido-central">
-      <div class="menu-centro">
+      <div class="menu-centro iu container">
         <div id="icon-izquierdo"><i class="bars icon" style="font-size: 20px;"></i></div>
-        <div id="input-centro" class="ui icon input">
-          <input type="text" placeholder="Search...">
-          <i class="search link icon"></i>
+        <div class="ui fluid multiple search selection dropdown">
+          <input type="hidden" name="country">
+          <i class="dropdown icon"></i>
+          <div class="default text">Select Country</div>
+          <div class="menu">      
+          <div class="item">Color</div>
+          <div class="item">Subcategoria</div>
+          <div class="item">Categoria</div>
+          <div class="item">Proveedores</div>
+          <div class="item">Producto</div>
         </div>
+          </div>
+
+        {# select para las busquedas#}
+        
+
         {% if user.is_authenticated %}
             {% if user.is_superuser %}
             <div class="ui right pointing dropdown">

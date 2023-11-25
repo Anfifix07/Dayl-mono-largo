@@ -203,3 +203,12 @@ def subcategoria_eliminar(request,id_subcategoria):
         return redirect('admin:index')
     subcategoria.delete()
     return redirect('admin:subcategoria')
+
+
+def buscar_productos(request):
+    categoria = Categoria.objects.all()
+    subcategoria = Subcategoria.objects.all()
+    color = Color.objects.all()
+    producto = Producto.objects.all()
+    producto = Proveedor.objects.all()
+    

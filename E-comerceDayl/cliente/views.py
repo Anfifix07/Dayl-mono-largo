@@ -11,6 +11,10 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
 from factura.models import *
 from django.contrib.auth.forms import UserChangeForm
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+from django.urls import reverse
+
 # Create your views here.
 @ajax_request_required
 def index(request):
@@ -108,9 +112,42 @@ def modificar_cliente(request):
                     request.user.save()
                     cliente.save()
                     messages.success(request,'Los cambios se han realizado con exito')
+                    return redirect('cliente:notificacion')
     return render(request, 'modificar_dato1s.html', {'form':form,'cliente':cliente})
             
 #print(f"{field_name}:{form[field_name].value()}")
 #{field.widget.attrs.get('nombre')}
+
+
+def notificacion(request):
+
+    mensaje_html = (
+        '<head></head><body style="margin: 20px auto auto 200px;font-family:"Gill Sans", "Gill Sans MT", Calibri,"Trebuchet MS", sans-serif;"><h1 style="text-align: center;color: #5EA0FF;" >Hola {first_name},</h1><p style="font-size: 20px;text-align: justify;">Queríamos informarte que se han realizado cambios en tu perfil:</p><p style="font-size: 20px;text-align: justify;">Por favor, revisa la información actualizada y asegúrate de que todo esté correcto.</p><p style="font-size: 20px;text-align: justify;">Si tienes alguna pregunta, no dudes en ponerte en contacto con nosotros.</p><p style="font-size: 20px;text-align: justify;">Si no has sido el que a realizado estas modificaciones contactanos y cambia la contraseña con este link</p><p style="font-size: 20px;text-align: justify;"><a href="{url}">Clic aqui para dirijirlo a cambiar contraseña</a></p><p style="font-size: 20px;text-align: justify;">Gracias por utilizar nuestro servicio.</p><p style="margin: 3px 10px; font-size: 20px;">Atentamente,</p><p style=" margin: 3px 10px; font-size: 20px;">Tu Equipo de Soporte</p><p style="margin: 3px 10px; color: #5EA0FF; font-weight: bold;  font-size: 25px;">DAYL</p></body></html>'
+    ).format(first_name=request.user.first_name, url=f"http://{request.get_host()}/{reverse('password_reset')}")
+
+    mensaje_texto = (
+        'Hola {first_name},\n\n'
+        'Queríamos informarte que se han realizado cambios en tu perfil:.\n\n'
+        'Por favor, revisa la información actualizada y asegúrate de que todo esté correcto\n\n'
+        'Si tienes alguna pregunta, no dudes en ponerte en contacto con nosotros \n\n'
+        'Si no has sido el que a realizado estas modificaciones contactanos y cambia la contraseña con este link {url} \n\n'
+        'Gracias por utilizar nuestro servicio. \n\n'
+        'Atentamente,\n Tu Equipo de Soporte \n Dayl'
+    ).format(first_name=request.user.first_name, url=reverse('password_reset'))
+
+    email=EmailMultiAlternatives(
+        'MODIFICACIONES EN LA CUENTA',  # Asunto del correo electrónico
+        mensaje_texto,  # Cuerpo del correo electrónico en texto sin formato
+        settings.EMAIL_HOST_USER,  # Dirección de correo electrónico del remitente
+        [request.user.email]  # Lista de direcciones de correo electrónico de destino
+    )
+
+    email.attach_alternative(mensaje_html, "text/html")
+
+    email.fail_silently = False
+    email.send()
+
+    return redirect('index')
+
                 
     

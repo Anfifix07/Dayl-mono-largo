@@ -191,6 +191,7 @@ span.user.redirect {
     justify-content: center;
     align-items: center;
     color: #000;
+    margin-left: 7px!important;
 }
 
 .left-margin {
@@ -222,4 +223,19 @@ span.user.redirect {
 }
 .contenedor-formulario > p{
   margin: 0px!important;
+}
+
+/*Color el dropdawon dentro del la barra de busqueda*/
+
+#user-buttons2{
+  color: #fff !important;
+  background-color: #5EA0FF;
+  border: none;
+  padding: 8px 16px;
+  
+  cursor: pointer;
+  margin-left: 10px;
+}
+span .user .redirect {
+
 }
