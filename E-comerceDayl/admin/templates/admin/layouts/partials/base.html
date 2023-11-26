@@ -19,63 +19,88 @@
       <div>
         <img src="{% static 'admin/img/logo dayl.png' %}" id="logo" alt="">
         <ul>
-          <a href="{% url 'admin:index' %}"><li {% if url == 'inicio'  %}class="activo"{% endif %}><i class="icon home"></i><span class="ocultar responsive-span">INICIO</span></li></a> 
-          <a href="{% url 'admin:categoria' %}"><li {% if url == 'categoria'  %}class="activo"{% endif %}><i class="icon boxes"></i><span class="ocultar responsive-span">CATEGORIAS</span></li></a>
-          <a href="{% url 'admin:subcategoria' %}"><li {% if url == 'subcategoria'  %}class="activo"{% endif %}><i class="icon buromobelexperte"></i><span class="ocultar responsive-span">SUBCATEGORIAS</span></li></a>
-          <a href="{% url 'admin:producto' %}"><li {% if url == 'producto'  %}class="activo"{% endif %}><i class="icon dropbox"></i><span class="ocultar responsive-span">PRODUCTOS</span></li></a>
-          <a href="{% url 'admin:color' %}"><li {% if url == 'color'  %}class="activo"{% endif %}><i class="icon paint brush"></i><span class="ocultar responsive-span">P. COLOR</span></li></a>
-          <a href="#"><li {% if url == ''  %}class="activo"{% endif %}><i class="users icon"></i><span class="ocultar responsive-span">PROVEEDORES</span></li></a>
-          <a href="{% url 'cliente:config' %}"><li {% if url == 'configuracion'  %}class="activo"{% endif %}><i class="cogs icon"></i><span class="ocultar responsive-span">CONFIGURACION PERFIL</span></li></a>
+          <a href="{% url 'admin:index' %}">
+            <li {% if url == "inicio" %}class="activo" {% endif %}><i class="icon home"></i><span
+                class="ocultar responsive-span">INICIO</span></li>
+          </a>
+          <a href="{% url 'admin:categoria' %}">
+            <li {% if url == 'categoria' %}class="activo" {% endif %}><i class="icon boxes"></i><span
+                class="ocultar responsive-span">CATEGORIAS</span></li>
+          </a>
+          <a href="{% url 'admin:subcategoria' %}">
+            <li {% if url == 'subcategoria' %}class="activo" {% endif %}><i class="icon buromobelexperte"></i><span
+                class="ocultar responsive-span">SUBCATEGORIAS</span></li>
+          </a>
+          <a href="{% url 'admin:producto' %}">
+            <li {% if url == 'producto' %}class="activo" {% endif %}><i class="icon dropbox"></i><span
+                class="ocultar responsive-span">PRODUCTOS</span></li>
+          </a>
+          <a href="{% url 'admin:color' %}">
+            <li {% if url == 'color' %}class="activo" {% endif %}><i class="icon paint brush"></i><span
+                class="ocultar responsive-span">P. COLOR</span></li>
+          </a>
+          <a href="#">
+            <li {% if url == '' %}class="activo" {% endif %}><i class="users icon"></i><span
+                class="ocultar responsive-span">PROVEEDORES</span></li>
+          </a>
+          <a href="{% url 'cliente:config' %}">
+            <li {% if url == 'configuracion' %}class="activo" {% endif %}><i class="cogs icon"></i><span
+                class="ocultar responsive-span">CONFIGURACION PERFIL</span></li>
+          </a>
         </ul>
       </div>
-      <a href=""><div class="salida"><i class="sign-out icon"></i><span class="ocultar">logout</span></div></a>
+      <a href="">
+        <div class="salida"><i class="sign-out icon"></i><span class="ocultar">logout</span></div>
+      </a>
     </div>
     <div class="contenido-central">
       <div class="menu-centro iu container">
         <div id="icon-izquierdo"><i class="bars icon" style="font-size: 20px;"></i></div>
-        <div class="ui fluid multiple search selection dropdown">
-          <input type="hidden" name="country">
-          <i class="dropdown icon"></i>
-          <div class="default text">Select Country</div>
-          <div class="menu">      
-          <div class="item">Color</div>
-          <div class="item">Subcategoria</div>
-          <div class="item">Categoria</div>
-          <div class="item">Proveedores</div>
-          <div class="item">Producto</div>
-        </div>
+        <div class="ui action input menu">
+          <input type="text" placeholder="Search...">
+          <div class="ui compact menu">
+            <div class="ui simple dropdown item">
+              Filtros
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item">Subcategoria<input type="checkbox" name="" value="subcategoria" id=""></div>
+                <div class="item">Color<input type="checkbox" name="" value="color" id=""></div>
+                <div class="item">Proveedores<input type="checkbox" name="" value="proveedor" id=""></div>
+              </div>
+            </div>
           </div>
-
+          <div class="ui button" onclick="search_filters()">Search</div>
+        </div>
         {# select para las busquedas#}
-        
+
 
         {% if user.is_authenticated %}
-            {% if user.is_superuser %}
-            <div class="ui right pointing dropdown">
-                <span class="user redirect">{{ user.username|first_letter }}</span>
-                <div class="menu" style="z-index: 50;">
-                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
-                    <a href="{% url 'admin:index' %}" class="floating labeled icon item"><i
-                            class="wrench icon"></i>Administracion</a>
-                    <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
-                            class="user times icon"></i>Desconectar</a>
-                </div>
-            </div>
-            {% else %}
-            <div class="ui right pointing dropdown">
-                <span class="user redirect">{{ user.username|first_letter }}</span>
-                <div class="menu" style="z-index: 50;">
-                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
-                    <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
-                            class="user times icon"></i>Desconectar</a>
-                </div>
-            </div>
-            {% endif %}
+        {% if user.is_superuser %}
+        <div class="ui right pointing dropdown">
+          <span class="user redirect">{{ user.username|first_letter }}</span>
+          <div class="menu" style="z-index: 50;">
+            <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+            <a href="{% url 'admin:index' %}" class="floating labeled icon item"><i
+                class="wrench icon"></i>Administracion</a>
+            <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
+                class="user times icon"></i>Desconectar</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="ui right pointing dropdown">
+          <span class="user redirect">{{ user.username|first_letter }}</span>
+          <div class="menu" style="z-index: 50;">
+            <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+            <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i
+                class="user times icon"></i>Desconectar</a>
+          </div>
+        </div>
+        {% endif %}
         {% endif %}
       </div>
-    {% block container %}
-        
-    {% endblock container %}
+      {% block container %}
+
+      {% endblock container %}
     </div>
   </div>
 </body>
@@ -84,9 +109,10 @@
 <script src="{% static 'admin/js/alertas.js' %}"></script>
 <script src="{% static 'admin/js/menu-configuracion.js' %}"></script>
 <script>
-    $('.ui.dropdown')
-        .dropdown();
+  $('.ui.dropdown')
+    .dropdown();
 </script>
 {% block script %}
 {% endblock script %}
+
 </html>

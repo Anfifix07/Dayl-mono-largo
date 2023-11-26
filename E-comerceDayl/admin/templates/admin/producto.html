@@ -8,13 +8,13 @@
     <table>
       <thead>
         <tr>
-          <th>id</th>
-          <th>Proveedor</th>
+          {% if url == producto %}<th>id</th>{% endif %}
+          {% if url == producto %}<th>Proveedor</th>{% endif %}
           <th>Nombre</th>
           <th>Iva</th>
           <th>Precio</th>
           <th>Stock</th>
-          <th>Sub categoria</th>
+          {% if url == producto %}<th>Sub categoria</th>{% endif %}
           <th>Oferta</th>
           <th>Estado</th>
           <th>Editar</th>
@@ -24,13 +24,13 @@
       <tbody>
         {% for producto in productos %}
         <tr class="productos_tabla" data-producto-id="{{ producto.id }}">
-            <td >{{ producto.id }}</td>
-            <td>{{ producto.proveedor.nombre_completo }}</td>
+            {% if url == producto %}<td >{{ producto.id }}</td>{% endif %}
+            {% if url == producto %}<td>{{ producto.proveedor.nombre_completo }}</td>{% endif %}
             <td>{{ producto.nombre }}</td>
             <td>{{ producto.porcentaje_iva }}</td>
             <td>{{ producto.precio }}</td>
             <td>{{ producto.stock }}</td>
-            <td>{{ producto.subcategoria.nombre }}</td>
+            {% if url == producto %}<td>{{ producto.subcategoria.nombre }}</td>{% endif %}
             <td>{{ producto.oferta }}</td>
             <td>{{ producto.estado }}</td>
             <td><i class="pencil alternate icon"></i></td>
