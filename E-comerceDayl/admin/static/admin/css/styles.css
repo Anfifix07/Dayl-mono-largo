@@ -236,6 +236,10 @@ span.user.redirect {
   cursor: pointer;
   margin-left: 10px;
 }
-span .user .redirect {
-
+.ui.action.input.menu{
+  width: 90%;
+  margin: 0 auto;
+}
+div.item input{
+  margin-left: 10px;
 }

@@ -102,10 +102,8 @@ def modificar_cliente(request):
                 if valor is not None:
                     if field_name.lower() not in ['contraseña', 'correo_electronico']:
                         setattr(cliente, field_name, valor)
-                        print('ppp')
                     elif field_name.lower() == 'contraseña':
                         request.user.set_password(valor)
-                        print('ccc')
                     elif field_name.lower() == 'correo_electronico':
                         print(valor)  # Aquí podrías validar y procesar el nuevo correo electrónico si es necesario
                         request.user.username = valor  # Cambio de username si lo deseas
