@@ -4,6 +4,7 @@ from producto.models import *
 from django.http import JsonResponse
 from django.core import serializers
 from .forms import ProductoForm,ColorForm,CategoriaForm,SubcategoriaForm
+
 # Create your views here.
 
 @only_admin_access
@@ -211,4 +212,5 @@ def buscar_productos(request):
     color = Color.objects.all()
     producto = Producto.objects.all()
     producto = Proveedor.objects.all()
+    
     

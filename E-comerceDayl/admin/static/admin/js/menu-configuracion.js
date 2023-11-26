@@ -25,14 +25,15 @@ document.addEventListener('DOMContentLoaded', function () {
       inputCentro.classList.add('ocultar1');
     }
   });
-
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 400) {
-      inputCentro.classList.remove('ocultar1');
-    } else {
-      
-    }
-  });
+  if(window.innerWidth < 401){
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 400) {
+        inputCentro.classList.remove('ocultar1');
+      } else {
+        
+      }
+    });
+  }
 });
 
 //Funcion de regreso a home

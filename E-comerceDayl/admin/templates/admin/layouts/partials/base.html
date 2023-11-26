@@ -18,15 +18,25 @@
     <div class="menu-izq">
       <div>
         <img src="{% static 'admin/img/logo dayl.png' %}" id="logo" alt="">
+       
+        {% if user.is_superuser %} 
         <ul>
           <a href="{% url 'admin:index' %}"><li {% if url == 'inicio'  %}class="activo"{% endif %}><i class="icon home"></i><span class="ocultar responsive-span">INICIO</span></li></a> 
           <a href="{% url 'admin:categoria' %}"><li {% if url == 'categoria'  %}class="activo"{% endif %}><i class="icon boxes"></i><span class="ocultar responsive-span">CATEGORIAS</span></li></a>
           <a href="{% url 'admin:subcategoria' %}"><li {% if url == 'subcategoria'  %}class="activo"{% endif %}><i class="icon buromobelexperte"></i><span class="ocultar responsive-span">SUBCATEGORIAS</span></li></a>
           <a href="{% url 'admin:producto' %}"><li {% if url == 'producto'  %}class="activo"{% endif %}><i class="icon dropbox"></i><span class="ocultar responsive-span">PRODUCTOS</span></li></a>
           <a href="{% url 'admin:color' %}"><li {% if url == 'color'  %}class="activo"{% endif %}><i class="icon paint brush"></i><span class="ocultar responsive-span">P. COLOR</span></li></a>
+          <a href="{% url 'factura:mostrar-factura' %}"><li {% if url == 'factura'  %}class="activo"{% endif %}><i class="file pdf outline icon"></i><span class="ocultar responsive-span">FACTURA DE LOS CLIENTES</span></li></a>
           <a href="#"><li {% if url == ''  %}class="activo"{% endif %}><i class="users icon"></i><span class="ocultar responsive-span">PROVEEDORES</span></li></a>
           <a href="{% url 'cliente:config' %}"><li {% if url == 'configuracion'  %}class="activo"{% endif %}><i class="cogs icon"></i><span class="ocultar responsive-span">CONFIGURACION PERFIL</span></li></a>
         </ul>
+        {% else %}
+          <ul>
+            <a href="{% url 'factura:mostrar-factura' %}"><li {% if url == 'factura'  %}class="activo"{% endif %}><i class="icon boxes"></i><span class="ocultar responsive-span">ver facturas</span></li></a>
+            <a href="{% url 'cliente:config' %}"><li {% if url == 'configuracion'  %}class="activo"{% endif %}><i class="cogs icon"></i><span class="ocultar responsive-span">CONFIGURACION PERFIL</span></li></a>
+          </ul>
+       {% endif %}
+        
       </div>
       <a href=""><div class="salida"><i class="sign-out icon"></i><span class="ocultar">logout</span></div></a>
     </div>
