@@ -62,7 +62,7 @@ def paypal_cancel(request):
   messages.error(request,'Payment Cancelled')
   return redirect('index')
 
-def mostrar_factura(request, id_factura):
+def mostrar_factura(request,id_factura):
   factura= Factura.objects.get(id = id_factura)
   cliente = Cliente.objects.get(id = factura.cliente.id)
   
@@ -78,5 +78,10 @@ def mostrar_factura(request, id_factura):
     'cliente': cliente
   }
   return render(request, 'factura.html', context )
+
+
+def mostrar_tabla_factura(request):
+  factura = Factura.objects.all()
+  return render(request, 'mostrar-factura.html',{'facturas':factura})
 
   

@@ -88,6 +88,8 @@ def mostrar_factura_cliente(request):
         'factura':factura
     }
     return render(request, 'facturaCliente.html', context)
+
+
 @login_required
 def modificar_cliente(request):
     cliente = Cliente.objects.get(user=request.user)

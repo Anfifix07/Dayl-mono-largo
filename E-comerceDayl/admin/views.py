@@ -1,41 +1,15 @@
-import json
 from django.shortcuts import render, redirect
 from .decorators import only_admin_access
 from producto.models import *
 from django.http import JsonResponse
 from django.core import serializers
-from django.core.serializers import serialize
 from .forms import ProductoForm,ColorForm,CategoriaForm,SubcategoriaForm
-from .custom_def import filtro_productos
+
 # Create your views here.
 
 @only_admin_access
 def index(request):
-    if 'temporales' in request.session:
-        del request.session['temporales']
-    filtros = request.GET.get('filtros')
-    busqueda = request.GET.get('busqueda')
-    productos = filtro_productos(filtros,busqueda)
-    if productos:
-        request.session['temporales'] = serialize('json', productos)
-        return JsonResponse({'productos': request.session['temporales']})
-    return render(request, 'admin/index.html', {'url': 'inicio'})
-
-def busqueda(request):
-    subcategorias = Subcategoria.objects.all()
-    proveedores = Proveedor.objects.all()
-    if 'temporales' in request.session:
-        datos = json.loads(request.session['temporales'])
-        del request.session['temporales']
-        fields_list = [item['fields'] for item in datos]
-    else:
-        fields_list = ""
-    print(fields_list)
-    context = {'productos': fields_list,
-               'url':'',
-               'subcategorias':subcategorias,
-               'proveedores':proveedores}
-    return render(request, 'admin/producto.html',context)
+    return render(request,'admin/index.html',{'url':'inicio'})
 @only_admin_access
 def producto(request):
     productos = Producto.objects.all()
@@ -231,11 +205,12 @@ def subcategoria_eliminar(request,id_subcategoria):
     subcategoria.delete()
     return redirect('admin:subcategoria')
 
+
 def buscar_productos(request):
     categoria = Categoria.objects.all()
     subcategoria = Subcategoria.objects.all()
     color = Color.objects.all()
     producto = Producto.objects.all()
     producto = Proveedor.objects.all()
-    pass
+    
     
