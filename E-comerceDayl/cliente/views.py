@@ -112,7 +112,7 @@ def modificar_cliente(request):
                     cliente.save()
                     messages.success(request,'Los cambios se han realizado con exito')
                     return redirect('cliente:notificacion')
-    return render(request, 'modificar_dato1s.html', {'form':form,'cliente':cliente})
+    return render(request, 'modificar_dato1s.html', {'form':form,'cliente':cliente, 'url':'configuracion'})
             
 #print(f"{field_name}:{form[field_name].value()}")
 #{field.widget.attrs.get('nombre')}
