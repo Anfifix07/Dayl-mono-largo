@@ -1,5 +1,5 @@
 import time
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.urls import reverse
 from producto.models import *
@@ -12,6 +12,7 @@ from .paypal_tags import agregar_carrito
 import json
 from django.core.files.base import ContentFile
 from paypal.standard.ipn.models import PayPalIPN
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def detalle_compra(request):
@@ -79,9 +80,20 @@ def mostrar_factura(request,id_factura):
   }
   return render(request, 'factura.html', context )
 
-
+@login_required
 def mostrar_tabla_factura(request):
-  factura = Factura.objects.all()
-  return render(request, 'mostrar-factura.html',{'facturas':factura})
+  if request.user.is_superuser:
+    factura = Factura.objects.all()
+  else:
+    print("------------------------- esta entrando----------------------")
+    cliente = Cliente.objects.get(user=request.user)
+    factura = Factura.objects.filter(cliente = cliente).all()
+    print(cliente.user.id, "facturas")
+    
+  context = {
+    'facturas':factura,
+    'url':'factura'
+    }
+  return render(request, 'mostrar-factura.html', context)
 
   

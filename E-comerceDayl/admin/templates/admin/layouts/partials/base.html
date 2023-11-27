@@ -32,7 +32,7 @@
         </ul>
         {% else %}
           <ul>
-            <a href="{% url 'factura:mostrar-factura' %}"><li {% if url == 'factura'  %}class="activo"{% endif %}><i class="icon boxes"></i><span class="ocultar responsive-span">ver facturas</span></li></a>
+            <a href="{% url 'factura:mostrar-factura' %}"><li {% if url == 'factura'  %}class="activo"{% endif %}><i class="icon boxes"></i><span class="ocultar responsive-span">VER FACTURAS</span></li></a>
             <a href="{% url 'cliente:config' %}"><li {% if url == 'configuracion'  %}class="activo"{% endif %}><i class="cogs icon"></i><span class="ocultar responsive-span">CONFIGURACION PERFIL</span></li></a>
           </ul>
        {% endif %}

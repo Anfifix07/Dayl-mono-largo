@@ -105,15 +105,14 @@ def modificar_cliente(request):
                     elif field_name.lower() == 'contraseña':
                         request.user.set_password(valor)
                     elif field_name.lower() == 'correo_electronico':
-                        print(valor)  # Aquí podrías validar y procesar el nuevo correo electrónico si es necesario
-                        request.user.username = valor  # Cambio de username si lo deseas
+                        request.user.username = valor
                         request.user.email = valor
                         
                     request.user.save()
                     cliente.save()
                     messages.success(request,'Los cambios se han realizado con exito')
                     return redirect('cliente:notificacion')
-    return render(request, 'modificar_dato1s.html', {'form':form,'cliente':cliente})
+    return render(request, 'modificar_dato1s.html', {'form':form,'cliente':cliente, 'url':'configuracion'})
             
 #print(f"{field_name}:{form[field_name].value()}")
 #{field.widget.attrs.get('nombre')}
