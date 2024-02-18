@@ -4,7 +4,7 @@ from producto.models import *
 from django.core.serializers import serialize
 from django.http import JsonResponse
 from django.core import serializers
-from .forms import ProductoForm,ColorForm,CategoriaForm,SubcategoriaForm
+from .forms import ProductoForm,ColorForm,CategoriaForm,SubcategoriaForm, ProveedorForm
 from .custom_def import filtro_productos
 import json
 
@@ -226,7 +226,57 @@ def subcategoria_registro(request):
 def subcategoria_eliminar(request,id_subcategoria):
     try:
         subcategoria = Subcategoria.objects.get(id=id_subcategoria)
-    except subcategoria.DoesNotExist:
+    except Subcategoria.DoesNotExist:
         return redirect('admin:index')
     subcategoria.delete()
     return redirect('admin:subcategoria')   
+
+@only_admin_access
+def proveedor(request):
+    proveedores = Proveedor.objects.all()
+    url = 'proveedor'
+    context = {'proveedores': proveedores,
+               'url':url,}
+    return render(request,'admin/proveedor.html',context)
+
+@only_admin_access
+def proveedor_edit(request):
+    proveedor_id = request.GET.get('proveedor_id')
+    try:
+        proveedor = Proveedor.objects.get(id=proveedor_id)
+        proveedor_json = serializers.serialize('json', [proveedor])
+        return JsonResponse({'proveedor': proveedor_json,'id_proveedor':proveedor_id})
+    except Proveedor.DoesNotExist:
+        return JsonResponse({'error': 'proveedor no encontrado'})
+    pass
+
+@only_admin_access
+def editar_proveedor(request,id_proveedor):    
+    try:
+        proveedor = Proveedor.objects.get(id=id_proveedor)
+    except:
+        return redirect('admin:index')
+    form = ProveedorForm(request.POST,instance=proveedor)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('admin:proveedor')
+    return redirect('admin:index')
+
+@only_admin_access
+def proveedor_registro(request):
+    form = ProveedorForm(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('admin:proveedor')
+    return redirect('admin:index')
+
+@only_admin_access
+def proveedor_eliminar(request,id_proveedor):
+    try:
+        proveedor = Proveedor.objects.get(id=id_proveedor)
+    except Proveedor.DoesNotExist:
+        return redirect('admin:index')
+    proveedor.delete()
+    return redirect('admin:proveedor')   

@@ -15,7 +15,7 @@
             <div class="ui right pointing dropdown left-margin">
                 <span class="user redirect">{{ user.username|first_letter }}</span>
                 <div class="menu" style="z-index: 50;">
-                    <a class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
+                    <a href="{% url 'cliente:config' %}" class="floating labeled icon item"><i class="cog icon"></i>Configuracion</a>
                     <a href="{% url 'admin:index' %}" class="floating labeled icon item"><i
                             class="wrench icon"></i>Administracion</a>
                     <a href="{% url 'cliente:logout' %}" class="floating labeled icon item"><i

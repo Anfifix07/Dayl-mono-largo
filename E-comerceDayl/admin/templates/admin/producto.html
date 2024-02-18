@@ -70,7 +70,7 @@
                     <select class="ui dropdown" name="subcategoria" required>
                         <option value="" disabled selected>Selecciona la subcategoria</option>
                         {% for subcategoria in subcategorias %}
-                        <option value="{{ subcategoria.id }}">{{ subcategoria.nombre }} - {{ subcategoria.categoria.nombre }}</option>
+                        <option value="{{ subcategoria.id }}">{{ subcategoria.nombre }}</option>
                         {% endfor %}
                     </select>
                 </div>

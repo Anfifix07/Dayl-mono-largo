@@ -27,4 +27,9 @@ urlpatterns = [
     path('subcategoria/edit/', views.subcategoria_edit, name="subcategoria_edit"),
     path('subcategoria/edit/<int:id_subcategoria>', views.editar_subcategoria, name="editar_subcategoria"),
     path('subcategoria/del/<int:id_subcategoria>', views.subcategoria_eliminar,name="subcategoria_eliminar"),
+    path('proveedor/',views.proveedor, name="proveedor"),
+    path('proveedor/registro', views.proveedor_registro, name="proveedor_registro"),
+    path('proveedor/edit/', views.proveedor_edit, name="proveedor_edit"),
+    path('proveedor/edit/<int:id_proveedor>', views.editar_proveedor, name="editar_proveedor"),
+    path('proveedor/del/<int:id_proveedor>', views.proveedor_eliminar,name="proveedor_eliminar"),
     ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

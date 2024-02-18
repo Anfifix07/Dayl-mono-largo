@@ -1,5 +1,5 @@
 from django import forms
-from producto.models import Producto,Color,Categoria,Subcategoria
+from producto.models import Producto,Color,Categoria,Subcategoria,Proveedor
 
 class ProductoForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,9 @@ class SubcategoriaForm(forms.ModelForm):
     class Meta:
         model = Subcategoria
         fields = '__all__'
+        
+class ProveedorForm(forms.ModelForm):
+    class Meta:
+        model = Proveedor
+        fields = '__all__'
+        

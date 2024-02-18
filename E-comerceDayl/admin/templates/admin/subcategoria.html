@@ -1,7 +1,7 @@
 {% extends "admin/layouts/partials/base.html" %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'admin/css/tablas_p.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/tablas_sub.css' %}">
 {% endblock head %}
 {% block container %}
 <div class="table-container" id="contenedor_subcategoria">
@@ -45,9 +45,9 @@
                 <div class="field">
                     <label>Categoria</label>
                     <select class="ui dropdown" name="categoria" required>
-                        <option value="" disabled selected>Selecciona la categoria</option>
+                        <option value="" disabled {% if subcategoria.id %}{% else %}selected{% endif %}>Selecciona la categoria</option>
                         {% for categoria in categorias %}
-                        <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                        <option value="{{ categoria.id }}" {% if subcategoria.categoria.id == categoria.id %}selected{% endif %}>{{ categoria.nombre }}</option>
                         {% endfor %}
                     </select>
                 </div>

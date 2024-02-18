@@ -35,13 +35,15 @@ function editarProducto(id_subcategoria){
         success: function(data) {
             var subcategoriaJSON = data.subcategoria;
             var subcategoria = JSON.parse(subcategoriaJSON)[0].fields;
+            console.log(subcategoria.categoria);
             document.getElementById('contenedor_subcategoria').setAttribute('style', 'display: none')
             document.getElementById('boton_registro_producto').setAttribute('style', 'display: none');
             var formulario = document.getElementById('producto-form');
             formulario.setAttribute('style', 'display: block;');
             formulario.querySelector('.ui.form').setAttribute('action', '/admin/subcategoria/edit/'+data.id_subcategoria)
             formulario.querySelector('[name="nombre"]').value = subcategoria.nombre;
-            formulario.querySelector('[name="categoria"]').value = subcategoria.categoria;
+            var categoria = formulario.querySelector('[name="categoria"]');
+            categoria.value = subcategoria.categoria;
         },
         error: function(error) {
             console.error('Error:', error);

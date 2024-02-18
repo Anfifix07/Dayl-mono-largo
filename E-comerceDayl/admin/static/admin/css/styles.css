@@ -21,9 +21,11 @@
   }
   .menu-izq{
     width: 25%;
+    height: 100%;
     max-width: 500px;
     background-color:rgb(212, 238, 255);
     display: flex;
+    position: fixed;
     flex-direction: column;
     justify-content: space-between;
   }
@@ -80,6 +82,8 @@
   .contenido-central{
     padding: 0px 40px 0px;
     width: 75%;
+    position: relative;
+    left: 25%;
   }
   .menu-centro {
     display: flex;
@@ -124,7 +128,7 @@
       width: 75%;
     }
   }
-  @media(max-width:1000px){
+  @media(max-width:1060px){
     .menu-izq img{
       max-width: 80px;
       margin: 8px 0 20px 0px;

@@ -22,7 +22,7 @@
             <td>{{ categoria.id }}</td>
             <td>{{ categoria.nombre }}</td>
             <td><img src="{{ categoria.imagen.url }}" alt="" style="max-width: 30px;max-height: 30px;"></td>
-            <td><i class="pencil alternate icon"></i><a href="{% url 'admin:categoria_eliminar' categoria.id %}"><i class="trash icon"></i></a></td>
+            <td><a href="{% url 'admin:editar_categoria' categoria.id %}"></a><i class="pencil alternate icon"></i><a href="{% url 'admin:categoria_eliminar' categoria.id %}"><i class="trash icon"></i></a></td>
         </tr>
         {% endfor %}
       </tbody>
