@@ -1,9 +1,3 @@
-const names = document.querySelector(".names")
-const email = document.querySelector(".email")
-const joined = document.querySelector(".joined")
-const body = document.querySelector("body")
-
-    
 function mostrarFormulario(formularioId) {
     // Oculta todos los formularios
     const formularios = document.querySelectorAll(".form-container");
