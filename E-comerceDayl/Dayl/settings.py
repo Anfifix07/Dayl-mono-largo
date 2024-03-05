@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '*',
-    "https://96c8-2800-484-de8f-7000-d54c-3f89-f3d4-4c15.ngrok-free.app",
+    "https://469d-2800-484-de8f-7000-61de-10a1-1546-ebb0.ngrok-free.app",
     ]
 
 
@@ -180,10 +180,10 @@ PAYPAL_RECEIVER_EMAIL = ENV('PAYPAL_RECEIVER_EMAIL')
 #-#--Cors settings--#-#
 
 CSRF_TRUSTED_ORIGINS = [
-     "https://96c8-2800-484-de8f-7000-d54c-3f89-f3d4-4c15.ngrok-free.app",
+     "https://469d-2800-484-de8f-7000-61de-10a1-1546-ebb0.ngrok-free.app",
 ]
 CORS_ALLOWED_ORIGINS = [
-    "https://96c8-2800-484-de8f-7000-d54c-3f89-f3d4-4c15.ngrok-free.app",
+    "https://469d-2800-484-de8f-7000-61de-10a1-1546-ebb0.ngrok-free.app",
     "http://localhost:3000",  # O la URL de tu frontend en desarrollo
     "http://localhost:8000",  # O la URL de tu backend en desarrollo
     "http://127.0.0.1:8000",

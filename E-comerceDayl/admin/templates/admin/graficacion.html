@@ -5,15 +5,13 @@
 {% endblock head %}
 {% block container %}
 
-    <div id="chart" class="chart" style="">
-                
-    </div>  
-
+    <div id="chart" class="chart"></div>  
+    <div id="graph-container"></div>
 
 
 {% endblock container %}
 {% block script %}
-    {#apache Echarts es con que realizo las graficaciones#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script src="{% static 'admin/js/plotly.js' %}"></script>
     <script src="{% static 'admin/js/graficacion.js' %}"></script>
 {% endblock script %}

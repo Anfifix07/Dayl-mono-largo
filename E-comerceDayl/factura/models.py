@@ -40,7 +40,7 @@ class Factura(models.Model):
   pedido = models.ForeignKey(Pedidos,on_delete=models.SET_NULL,null=True)
   
   def __str__(self):
-    return f'{self.id} cliente {self.Cliente.nombre}'
+    return f'{self.id} cliente {self.cliente.nombre}'
   class Meta:
     db_table = 'Factura'
 

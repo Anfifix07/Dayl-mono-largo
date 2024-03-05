@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from .decorators import only_admin_access
 from producto.models import *
 from django.core.serializers import serialize
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from .forms import ProductoForm, ColorForm, CategoriaForm, SubcategoriaForm, ProveedorForm
-from .custom_def import filtro_productos
+from .custom_def import filtro_productos, busqueda_x_semana, graficar_x_4
 import json
 import random
 
@@ -23,7 +23,7 @@ def index(request):
     if productos:
         request.session['temporales'] = serialize('json', productos)
         return JsonResponse({'productos': request.session['temporales']})
-    return render(request, 'admin/index.html', {'url': 'inicio'})
+    return render(request, 'admin/graficacion.html', {'url': 'inicio'})
 
 
 def busqueda(request):
@@ -385,3 +385,9 @@ def get_chart(request):
         ]
     }
     return JsonResponse(chart)
+
+def graficax_producto(request):
+    id_producto = request.GET.get('id_producto')
+    facturas = busqueda_x_semana(id_producto)
+    grafico = graficar_x_4(facturas)
+    return JsonResponse(grafico, safe=False)
