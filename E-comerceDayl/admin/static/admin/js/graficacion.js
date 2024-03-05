@@ -91,10 +91,11 @@ option = {
       }
     ]
   };
+
   function enviarPeticion(idProducto) {
     const url = '/admin/graficaxproducto/';
     const data = {
-      id_producto: idProducto,
+        id_producto: idProducto,
     };
   
     $.ajax({
@@ -102,19 +103,67 @@ option = {
         type: 'GET',
         data: data,
         success: function(response) {
-          var responseData = JSON.parse(response);
-          var layout = {
-            title: 'Ventas de x Producto',
-            xaxis: {
-              tickangle: -45
-            },
-            barmode: 'group'
-          };
-          Plotly.newPlot('graph-container', responseData.data, layout);
+            // Agregar el HTML del gráfico al contenedor
+            
+            $('#graph-container').html(response);
+        
+            // Reconfigurar cualquier interactividad del gráfico si es necesario
+            // Por ejemplo, si quieres ajustar el tamaño del gráfico después de cargarlo:
+            Plotly.relayout('graph-container', {
+                width: $('#graph-container').width(),
+                height: $('#graph-container').height()
+            });
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
 }
-  enviarPeticion(3)
+
+let categoryContent; // Definir categoryContent como variable global
+
+$(document).ready(function() {
+  $('#producto-input').on('input', function() {
+      var searchTerm = $(this).val();
+
+      // Realizar la solicitud AJAX solo si la longitud del término de búsqueda es mayor que 3
+      if (searchTerm.length > 3) {
+          $.ajax({
+              url: '/admin/API/producto_categoria/',
+              type: 'GET',
+              data: {
+                  'searchTerm': searchTerm
+              },
+              success: function(response) {
+                  var productos = JSON.parse(response);
+                  mostrarProductos(productos);
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error en la solicitud AJAX:', error);
+              }
+          });
+      } else {
+          // Si el término de búsqueda tiene menos de 3 caracteres, ocultar o borrar el div
+          $('#producto-lista').empty(); // Borrar el div de productos
+      }
+  });
+
+  function mostrarProductos(productos) {
+      $('#producto-lista').empty();
+
+      if (productos.length > 0) {
+          productos.forEach(function(producto) {
+              var opcionProducto = $('<div class="opcion-producto" data-id="' + producto.id + '" data-nombre="' + producto.title + '" data-categoria="' + producto.category + '">' + producto.title + ' - ' + producto.category + '</div>');
+              opcionProducto.click(function() {
+                  var productoSeleccionado = $(this);
+                  $('#producto-input').val(productoSeleccionado.data('nombre'));
+                  enviarPeticion(producto.id)
+                  $('#producto-lista').empty();
+              });
+              $('#producto-lista').append(opcionProducto);
+          });
+      } else {
+          console.log('No se encontraron productos');
+      }
+  }
+});

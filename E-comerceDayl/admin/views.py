@@ -5,7 +5,7 @@ from django.core.serializers import serialize
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from .forms import ProductoForm, ColorForm, CategoriaForm, SubcategoriaForm, ProveedorForm
-from .custom_def import filtro_productos, busqueda_x_semana, graficar_x_4
+from .custom_def import filtro_productos, busqueda_x_semana, graficar_x_4, busqueda_x_id
 import json
 import random
 
@@ -321,7 +321,7 @@ def proveedor_eliminar(request, id_proveedor):
     proveedor.delete()
     return redirect('admin:proveedor')
 
-
+@only_admin_access
 def get_chart(request):
     colors = ['blue', 'orange', 'red', 'black', 'yellow', 'green', 'magenta', 'lightblue', 'purple', 'brown']
     random_color = colors[random.randrange(0, (len(colors)-1))]
@@ -385,9 +385,17 @@ def get_chart(request):
         ]
     }
     return JsonResponse(chart)
-
+@only_admin_access
 def graficax_producto(request):
     id_producto = request.GET.get('id_producto')
-    facturas = busqueda_x_semana(id_producto)
-    grafico = graficar_x_4(facturas)
-    return JsonResponse(grafico, safe=False)
+    facturas = busqueda_x_id(busqueda_x_semana(),id_producto)
+    graph_html = graficar_x_4(facturas)
+    return HttpResponse(graph_html)
+
+def producto_categoria(request):
+    searchTerm = request.GET.get('searchTerm', '')
+    productos = Producto.objects.filter(nombre__icontains=searchTerm)
+    data = [{'title': producto.nombre, 'category': producto.subcategoria.nombre, 'id': producto.id} for producto in productos]
+    print(data)
+    json_data = json.dumps(data)
+    return JsonResponse(json_data, safe=False)

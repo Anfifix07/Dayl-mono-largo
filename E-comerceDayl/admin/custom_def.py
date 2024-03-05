@@ -7,6 +7,8 @@ import json
 import datetime
 from django.utils import timezone
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+from plotly.data import tips
 
 def filtro_productos(filtros,busqueda):
   productos = Producto.objects.none()
@@ -30,18 +32,20 @@ def filtro_productos(filtros,busqueda):
       productos = productos.union(pp)
   return productos
         
-def busqueda_x_semana(id_producto):
+def busqueda_x_semana():
     fecha_actual = timezone.make_aware(timezone.datetime.combine(timezone.now().date(), timezone.datetime.min.time()))
     fechas_semanas = [fecha_actual]
     for i in range(4):
         fecha_actual = fecha_actual - datetime.timedelta(days=7)
         fechas_semanas.append(fecha_actual)
     facturas_x_semana = [[],[],[],[]]
-    for i, fecha_fin in enumerate(fechas_semanas[:-1]):  # Itera sobre las fechas de fin de semana
-        fecha_inicio = fechas_semanas[i + 1]  # Obtiene la fecha de inicio de la semana
-        print(type(fecha_inicio))
+    for i, fecha_fin in enumerate(fechas_semanas[:-1]):
+        fecha_inicio = fechas_semanas[i + 1]
         facturas = Factura.objects.filter(fecha_factura__gte=fecha_inicio, fecha_factura__lte=(fecha_fin + datetime.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0))
         facturas_x_semana[3-i] = facturas
+    return facturas_x_semana
+
+def busqueda_x_id(facturas_x_semana,id_producto):
     facturas = [{'cantidad': 0, 'valor': 0} for _ in range(4)]
     for index, facturas_semana in enumerate(facturas_x_semana):
         for f in facturas_semana:
@@ -53,33 +57,45 @@ def busqueda_x_semana(id_producto):
                         if str(producto.split('_')[0]) == str(id_producto):
                             facturas[index]['cantidad'] += productos[producto]['cantidad']
                             facturas[index]['valor'] += productos[producto]['acumulado']
-                            print(facturas[index])
             except FileNotFoundError as e:
                 pass
     return(facturas)
 
 def graficar_x_4(datos):
-    """
-    Grafica los datos proporcionados en un gráfico.
-
-    Args:
-        datos (list): Una lista que contiene exactamente 4 diccionarios.
-                      Cada diccionario debe tener las claves 'cantidad' y 'valor'.
-    """
     semana = ['semana 1','semana 2','semana 3','semana 4']
-    grafico = go.Figure()
-    grafico.add_trace(go.Bar(
+    
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    
+    fig.add_trace(go.Bar(
+        x=semana,
+        y=[dato['valor'] for dato in datos],
+        name="Total de ventas",
+        marker=dict(color="#37167f"),
+    ), secondary_y=False)
+
+    fig.add_trace(go.Scatter(
         x=semana,
         y=[dato['cantidad'] for dato in datos],
-        name='Cantidad',
-        marker_color='#AA0DFE'
-    ))
-    grafico.add_trace(go.Bar(
-    x=semana,
-    y=[dato['valor'] for dato in datos],
-    name='Total',
-    marker_color='#FB0D0D'
-))
-    grafico.update_layout(barmode='group', xaxis_tickangle=-45)
-    grafico_json = grafico.to_json()
-    return grafico_json
+        name="Cantidad de ventas",
+        marker=dict(color="#d10257"),
+    ), secondary_y=True)
+
+    fig.update_layout(
+        legend=dict(orientation="h"),
+        yaxis=dict(
+            title=dict(text="Total de ventas"),
+            side="left",
+            range=[0, 50000],
+        ),
+        yaxis2=dict(
+            title=dict(text="Cantidad de ventas"),
+            side="right",
+            range=[0, 20],
+            overlaying="y",
+            tickmode="linear",
+        ),
+    )
+
+    graph_html = fig.to_html(full_html=False)
+
+    return graph_html

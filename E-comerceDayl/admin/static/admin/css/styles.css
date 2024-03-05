@@ -211,6 +211,9 @@ span.user.redirect {
 .field{
   margin-top: 20px!important;
 }
+.fieldx2{
+  margin-top: 40px;
+}
 .span-config{
   font-family: 'Montserrat-Bold';
   font-size: 15px;
