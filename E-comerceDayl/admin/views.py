@@ -5,7 +5,7 @@ from django.core.serializers import serialize
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from .forms import ProductoForm, ColorForm, CategoriaForm, SubcategoriaForm, ProveedorForm
-from .custom_def import filtro_productos, busqueda_x_semana, graficar_x_4, busqueda_x_id
+from .custom_def import filtro_productos, busqueda_x_semana, graficar_x_4, busqueda_x_id, ventas_4_semanas
 import json
 import random
 
@@ -385,6 +385,7 @@ def get_chart(request):
         ]
     }
     return JsonResponse(chart)
+
 @only_admin_access
 def graficax_producto(request):
     id_producto = request.GET.get('id_producto')
@@ -392,6 +393,13 @@ def graficax_producto(request):
     graph_html = graficar_x_4(facturas)
     return HttpResponse(graph_html)
 
+@only_admin_access
+def grafica_general(request):
+    facturas = ventas_4_semanas(busqueda_x_semana())
+    graph_html = graficar_x_4(facturas)
+    return HttpResponse(graph_html)
+
+@only_admin_access
 def producto_categoria(request):
     searchTerm = request.GET.get('searchTerm', '')
     productos = Producto.objects.filter(nombre__icontains=searchTerm)
