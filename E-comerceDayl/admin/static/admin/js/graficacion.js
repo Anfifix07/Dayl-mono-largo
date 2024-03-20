@@ -1,23 +1,3 @@
-/*function enviarPeticionGeneral() {
-  const url = '/admin/graficageneral/';
-  const data = {
-      id_producto: "",
-  };
-
-  $.ajax({
-      url: url,
-      type: 'GET',
-      data: data,
-      success: function(response) {
-        $('#chart').html(response);
-      },
-      error: function(xhr, status, error) {
-          console.log(error);
-      }
-  });
-
-}
-*/
 function enviarPeticion(idProducto) {
   const start = new Date();
   const url = '/admin/graficaxproducto/';
@@ -81,4 +61,3 @@ function mostrarProductos(productos) {
     }
 }
 });
-enviarPeticionGeneral()
