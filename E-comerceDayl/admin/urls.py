@@ -32,8 +32,6 @@ urlpatterns = [
     path('proveedor/edit/', views.proveedor_edit, name="proveedor_edit"),
     path('proveedor/edit/<int:id_proveedor>', views.editar_proveedor, name="editar_proveedor"),
     path('proveedor/del/<int:id_proveedor>', views.proveedor_eliminar,name="proveedor_eliminar"),
-    path('get_chart/', views.get_chart, name="get_chart"),
     path('graficaxproducto/', views.graficax_producto, name="grafica_x_producto"),
-    path('graficageneral/', views.grafica_general, name="grafica_general"),
     path('API/producto_categoria/', views.producto_categoria, name="producto_categoria"),
     ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

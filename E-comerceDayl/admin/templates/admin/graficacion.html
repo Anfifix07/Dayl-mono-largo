@@ -5,7 +5,7 @@
 {% endblock head %}
 {% block container %}
 
-    <div id="chart" class="graph-container"></div>
+    <div id="chart" class="graph-container">{{ grafico_general|safe }}</div>
 
     <input type="text" id="producto-input" class="fieldx2" placeholder="Buscar producto...">
     <div id="producto-lista"></div>

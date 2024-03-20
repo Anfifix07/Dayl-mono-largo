@@ -1,4 +1,4 @@
-function enviarPeticionGeneral() {
+/*function enviarPeticionGeneral() {
   const url = '/admin/graficageneral/';
   const data = {
       id_producto: "",
@@ -17,7 +17,7 @@ function enviarPeticionGeneral() {
   });
 
 }
-
+*/
 function enviarPeticion(idProducto) {
   const start = new Date();
   const url = '/admin/graficaxproducto/';

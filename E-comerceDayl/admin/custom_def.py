@@ -32,47 +32,43 @@ def filtro_productos(filtros,busqueda):
   return productos
         
 def busqueda_x_semana():
-    fecha_actual = timezone.make_aware(timezone.datetime.combine(timezone.now().date(), timezone.datetime.min.time()))
+    fecha_actual = timezone.make_aware(timezone.datetime.combine(timezone.now().date(), timezone.datetime.max.time()))
     fechas_semanas = [fecha_actual]
     for i in range(4):
-        fecha_actual = fecha_actual - datetime.timedelta(days=7)
+        fecha_actual -= datetime.timedelta(days=7)
         fechas_semanas.append(fecha_actual)
-    facturas_x_semana = [[],[],[],[]]
-    for i, fecha_fin in enumerate(fechas_semanas[:-1]):
-        fecha_inicio = fechas_semanas[i + 1]
-        facturas = Factura.objects.filter(fecha_factura__gte=fecha_inicio, fecha_factura__lte=(fecha_fin + datetime.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0))
-        facturas_x_semana[3-i] = facturas
-    return facturas_x_semana
+
+    facturas_por_semana = []
+    for i in range(4):
+        fecha_inicio = fechas_semanas[i+1]
+        fecha_fin = fechas_semanas[i]
+        facturas = Factura.objects.filter(
+            fecha_factura__gte=fecha_inicio,
+            fecha_factura__lte=fecha_fin,
+        )
+        facturas_por_semana.append(list(facturas))
+    facturas_por_semana = facturas_por_semana[::-1]
+    return facturas_por_semana
 
 def ventas_4_semanas(facturas_x_semana):
     facturas = [{'cantidad': 0, 'valor': 0} for _ in range(4)]
     for index,facturas_semana in enumerate(facturas_x_semana):
+        facturas[index]['cantidad'] = len(facturas_x_semana[index])
         for f in facturas_semana:
-            ruta = os.path.join(settings.MEDIA_ROOT, f.pedido.productos.name)
-            try:
-                with open(ruta, 'r') as productos_file:
-                    productos = json.loads(productos_file.read())
-                    for producto in productos:
-                        facturas[index]['cantidad'] += productos[producto]['cantidad']
-                        facturas[index]['valor'] += productos[producto]['acumulado']
-            except FileNotFoundError:
-                pass
+            productos = json.loads(f.pedido.productos)
+            for producto in productos:
+                facturas[index]['valor'] += productos[producto]['acumulado']
     return(facturas)
 
 def busqueda_x_id(facturas_x_semana,id_producto):
     facturas = [{'cantidad': 0, 'valor': 0} for _ in range(4)]
     for index, facturas_semana in enumerate(facturas_x_semana):
         for f in facturas_semana:
-            ruta = os.path.join(settings.MEDIA_ROOT, f.pedido.productos.name)
-            try:
-                with open(ruta, 'r') as productos_file:
-                    productos = json.loads(productos_file.read())
-                    for producto in productos:
-                        if str(producto.split('_')[0]) == str(id_producto):
-                            facturas[index]['cantidad'] += productos[producto]['cantidad']
-                            facturas[index]['valor'] += productos[producto]['acumulado']
-            except FileNotFoundError as e:
-                pass
+            productos = json.loads(f.pedido.productos)
+            for producto in productos:
+                if str(producto.split('_')[0]) == str(id_producto):
+                    facturas[index]['cantidad'] += productos[producto]['cantidad']
+                    facturas[index]['valor'] += productos[producto]['acumulado']
     return(facturas)
 
 def graficar_x_4(datos):

@@ -25,7 +25,7 @@ class Pedidos(models.Model):
   estado = models.BooleanField()
   situacion = models.CharField(help_text='Si el pedido se encuentra en ruta, entregado o no ha sido enviado', max_length=60)
   cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
-  productos = models.FileField(upload_to=nombreImagen, null=True,blank=True)
+  productos = models.JSONField()
   
   class Meta:
     db_table = 'Pedidos'  

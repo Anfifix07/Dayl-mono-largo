@@ -23,7 +23,9 @@ def index(request):
     if productos:
         request.session['temporales'] = serialize('json', productos)
         return JsonResponse({'productos': request.session['temporales']})
-    return render(request, 'admin/graficacion.html', {'url': 'inicio'})
+    facturas = ventas_4_semanas(busqueda_x_semana())
+    graph_html = graficar_x_4(facturas)
+    return render(request, 'admin/graficacion.html', {'url': 'inicio','grafico_general':graph_html})
 
 
 def busqueda(request):
@@ -322,71 +324,6 @@ def proveedor_eliminar(request, id_proveedor):
     return redirect('admin:proveedor')
 
 @only_admin_access
-def get_chart(request):
-    colors = ['blue', 'orange', 'red', 'black', 'yellow', 'green', 'magenta', 'lightblue', 'purple', 'brown']
-    random_color = colors[random.randrange(0, (len(colors)-1))]
-    serie = []
-    counter = 0
-    producto = Producto.objects.all()
-   
-    while (counter < 7):
-        serie.append(random.randrange(100, 400))
-        counter += 1
-
-    chart = {
-        'title': {
-        'text': 'general'
-        },
-        'tooltip': {
-        ' trigger': 'axis',
-        'axisPointer': {
-            'type': 'cross',
-                'label': {
-                    'backgroundColor': '#6a7985'
-                }
-            }
-        },
-    'legend': {
-        'data': ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-    },
-    'toolbox': {
-    'feature': {
-      'saveAsImage': {}
-    }
-  },
-  'grid': {
-    'left': '3%',
-    'right': '4%',
-    'bottom': '3%',
-    'containLabel': True
-  },
-        'xAxis': [
-            {
-                'type': "category",
-                'data': ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"]
-            }
-        ],
-        'yAxis': [
-            {
-                'type': "value"
-            }
-        ],
-        'series': [
-            {
-                'data': serie,
-                'type': "line",
-                'itemStyle': {
-                    'color': random_color
-                },
-                'lineStyle': {
-                    'color': random_color
-                }
-            }
-        ]
-    }
-    return JsonResponse(chart)
-
-@only_admin_access
 def graficax_producto(request):
     id_producto = request.GET.get('id_producto')
     facturas = busqueda_x_id(busqueda_x_semana(),id_producto)
@@ -394,10 +331,7 @@ def graficax_producto(request):
     return HttpResponse(graph_html)
 
 @only_admin_access
-def grafica_general(request):
-    facturas = ventas_4_semanas(busqueda_x_semana())
-    graph_html = graficar_x_4(facturas)
-    return HttpResponse(graph_html)
+
 
 @only_admin_access
 def producto_categoria(request):

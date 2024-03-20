@@ -1,6 +1,11 @@
 from django.conf import settings
+import json
+
 def agregar_carrito(dict):
-  carrito = dict
+  try:
+    carrito = json.loads(dict)
+  except json.JSONDecodeError:
+        pass
   items_paypal = []
   for key, value in carrito.items():
     carrito_dict = {'item_name':value['nombre'],'quantity':value['cantidad'],'amount':value['valor']}
