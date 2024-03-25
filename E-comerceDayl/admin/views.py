@@ -15,14 +15,6 @@ import random
 
 @only_admin_access
 def index(request):
-    if 'temporales' in request.session:
-        del request.session['temporales']
-    filtros = request.GET.get('filtros')
-    busqueda = request.GET.get('busqueda')
-    productos = filtro_productos(filtros, busqueda)
-    if productos:
-        request.session['temporales'] = serialize('json', productos)
-        return JsonResponse({'productos': request.session['temporales']})
     facturas = ventas_4_semanas(busqueda_x_semana())
     graph_html = graficar_x_4(facturas)
     return render(request, 'admin/graficacion.html', {'url': 'inicio','grafico_general':graph_html})
@@ -331,7 +323,32 @@ def graficax_producto(request):
     return HttpResponse(graph_html)
 
 @only_admin_access
+def search_filters(request):
+    if 'temporales' in request.session:
+        del request.session['temporales']
+    if request.method == 'GET' and request.GET.get('searchFilter') != '':
+        filtros = request.GET.get('searchFilter').split(',')
+        busqueda = request.GET.get('searchValue')
+        print(busqueda)
+        print(filtros)
+        productos = filtro_productos(filtros,busqueda)
+    else:
+        busqueda = request.GET.get('searchValue')
+        productos = filtro_productos([],busqueda)
+    request.session['temporales'] = [producto.id for producto in productos]
+    return JsonResponse({'xd':'correcto'}, safe=False)
 
+@only_admin_access
+def filters_complete(request):
+    productos = [Producto.objects.get(id=i) for i in request.session['temporales']]
+    subcategorias = Subcategoria.objects.all()
+    proveedores = Proveedor.objects.all()
+    url = 'producto'
+    context = {'productos': productos,
+               'url': url,
+               'subcategorias': subcategorias,
+               'proveedores': proveedores}
+    return render(request, 'admin/producto.html', context)
 
 @only_admin_access
 def producto_categoria(request):

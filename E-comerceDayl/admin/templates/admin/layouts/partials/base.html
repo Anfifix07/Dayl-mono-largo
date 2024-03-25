@@ -15,7 +15,8 @@
 
 <body style="background-color: white;">
   <div class="contenedor-configuracion">
-    <div class="menu-izq">
+    <div class="menu-izq" id="menu-izquierda">
+      <div style="align-self: end;"><i class="close icon" id="close-menu-izq"></i></div>
       <div>
         <img src="{% static 'admin/img/logo dayl.png' %}" id="logo" alt="">
        
@@ -43,18 +44,22 @@
     <div class="contenido-central">
       <div class="menu-centro iu container">
         <div id="icon-izquierdo"><i class="bars icon" style="font-size: 20px;"></i></div>
-        <div class="ui fluid multiple search selection dropdown">
-          <input type="hidden" name="country">
-          <i class="dropdown icon"></i>
-          <div class="default text">Select Country</div>
-          <div class="menu">      
-          <div class="item">Color</div>
-          <div class="item">Subcategoria</div>
-          <div class="item">Categoria</div>
-          <div class="item">Proveedores</div>
-          <div class="item">Producto</div>
-        </div>
+        <div class="fixed-search">
+          <div class="ui fluid multiple search selection dropdown" id="selectFilters" style="z-index: 5;">
+            <input type="hidden" name="country">
+            <i class="dropdown icon"></i>
+            <div class="default text">Filters</div>
+            <div class="menu">      
+            <div class="item" data-value="color">Color</div>
+            <div class="item" data-value="subcategoria">Subcategoria</div>
+            <div class="item" data-value="proveedor">Proveedores</div>
           </div>
+          </div>
+          <div class="ui icon input">
+            <i class="search icon"></i>
+            <input type="text" placeholder="Search..." id="searchFilters">
+          </div>
+        </div>
 
         {# select para las busquedas#}
         
@@ -93,6 +98,7 @@
 <script src="{% static 'js/semantic.js' %}"></script>
 <script src="{% static 'admin/js/alertas.js' %}"></script>
 <script src="{% static 'admin/js/menu-configuracion.js' %}"></script>
+<script src="{% static 'admin/node_modules/axios/dist/axios.js' %}"></script>
 <script>
     $('.ui.dropdown')
         .dropdown();

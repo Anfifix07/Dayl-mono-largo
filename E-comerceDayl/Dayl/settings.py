@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '*',
-    "https://2f4e-181-51-32-18.ngrok-free.app",
+    ENV('NGROK'),
     ]
 
 
@@ -180,10 +180,10 @@ PAYPAL_RECEIVER_EMAIL = ENV('PAYPAL_RECEIVER_EMAIL')
 #-#--Cors settings--#-#
 
 CSRF_TRUSTED_ORIGINS = [
-     "https://2f4e-181-51-32-18.ngrok-free.app",
+     ENV('NGROK'),
 ]
 CORS_ALLOWED_ORIGINS = [
-    "https://2f4e-181-51-32-18.ngrok-free.app",
+    ENV('NGROK'),
     "http://localhost:3000",  # O la URL de tu frontend en desarrollo
     "http://localhost:8000",  # O la URL de tu backend en desarrollo
     "http://127.0.0.1:8000",

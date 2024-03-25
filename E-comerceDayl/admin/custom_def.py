@@ -12,8 +12,7 @@ from plotly.data import tips
 
 def filtro_productos(filtros,busqueda):
   productos = Producto.objects.none()
-  if filtros != "[]" and busqueda:
-    filtros = json.loads(filtros)
+  if filtros != [] and busqueda:
     for filtro in filtros:
         kwargs = {}
         if 'subcategoria' in filtro:
@@ -25,7 +24,6 @@ def filtro_productos(filtros,busqueda):
         if kwargs != {}:
             pp = Producto.objects.filter(**kwargs)
             productos = productos.union(pp)
-        print(kwargs)
   elif busqueda:
       pp = Producto.objects.filter(nombre__icontains=busqueda)
       productos = productos.union(pp)

@@ -41,3 +41,13 @@ def producto(request,nombre_producto,id):
         return render(request, "producto.html",context)
     else:
         return redirect('product:producto_index')
+    
+def search_producto(request,nombre_producto):
+    categorias = Categoria.objects.all()
+    productos = Producto.objects.filter(nombre__icontains=nombre_producto)
+    subcategorias = Subcategoria.objects.all()
+    context = {"productos": productos,
+                 "categoria": nombre_producto,
+                 "categorias": categorias,
+                 "subcategorias": subcategorias}
+    return render(request, 'productos.html',context)

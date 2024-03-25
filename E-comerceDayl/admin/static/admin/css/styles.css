@@ -7,7 +7,9 @@
     src: url('/static/admin/css/fonts/Montserrat-Bold.ttf') format('truetype');
   }
   
-  
+  #symbol{
+    display: none;
+  }
   a{
     text-decoration: none!important;
     color: black!important;
@@ -27,7 +29,8 @@
     display: flex;
     position: fixed;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    transition: left 2s ease;
   }
   .menu-izq img{
     max-width: 110px;
@@ -84,6 +87,7 @@
     width: 75%;
     position: relative;
     left: 25%;
+    transition: left 2s ease;
   }
   .menu-centro {
     display: flex;
@@ -96,7 +100,9 @@
   .buscador-menu-top{
     min-width: 70%;
   }
-  
+  #close-menu-izq{
+    display: none;
+  }
   #icon-izquierdo{
     width: 5%;
   }
@@ -121,11 +127,19 @@
   }
   
   @media (max-width:1600px) {
+    #close-menu-izq{
+      display: none;
+    }
+    #icon-izquierdo{
+      display: none;
+    }
     .menu-izq{
       width: 25%;
+      left: 0;
     }
     div.contenido-central{
       width: 75%;
+      left: 3;
     }
   }
   @media(max-width:1060px){
@@ -152,14 +166,22 @@
     .ocultar1{
       display: none !important;
     }
+    div.contenido-central{
+      width: 75%;
+      left: 3;
+    }
   }
   
-  @media(max-width:350px){
+  @media(max-width:500px){
+    div.contenido-central{
+      width: 100%;
+      left: 0;
+    }
     #icon-izquierdo {
       display: inline;
     }
-    div.contenido-central{
-      width: 100% !important;
+    #close-menu-izq{
+      display:flex;
     }
     .menu-centro {
       display: flex;
@@ -174,11 +196,19 @@
       margin: 5px;
     }
     .menu-visible {
+      left: 0 !important;
+      opacity: 1 !important;
       width: 20%;
       display: flex !important;
     }
     .menu-izq{
-      display: none;
+      left: -150px;
+      transition: left 2s ease;
+      z-index: 7;
+    }
+    .menu-centro-left{
+      left: 0;
+      transition: left 2s ease;
     }
   }
 
@@ -249,4 +279,27 @@ span.user.redirect {
 }
 div.item input{
   margin-left: 10px;
+}
+
+/* Barra de busqueda de Admin  */
+.fixed-search{
+  display: flex;
+  width: 90%;
+  margin-top: auto;
+}
+.fixed-search > div{
+  width: 45% !important;
+  margin-right: 1rem;
+}
+@media (max-width:780px) {
+  .fixed-search{
+    flex-direction: column-reverse;
+  }
+  .fixed-search > div{
+    width:95% !important;
+    margin-right: 0rem;
+  }
+  .menu-centro{
+    margin-bottom: 60px;
+  }
 }

@@ -7,6 +7,8 @@ from buycar.views import *
 app_name = 'admin'
 urlpatterns = [
     path('', views.index, name="index"),
+    path('search/', views.search_filters, name="search_filters"),
+    path('search/complete', views.filters_complete, name="filters_complete"),
     path('busqueda',views.busqueda,name='busqueda'),
     path('producto/',views.producto, name="producto"),
     path('producto/registro', views.producto_registro, name="producto_registro"),
