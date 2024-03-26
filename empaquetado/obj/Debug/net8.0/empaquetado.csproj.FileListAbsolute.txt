@@ -1,0 +1,15 @@
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\bin\Debug\net8.0\empaquetado.exe
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\bin\Debug\net8.0\empaquetado.deps.json
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\bin\Debug\net8.0\empaquetado.runtimeconfig.json
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\bin\Debug\net8.0\empaquetado.dll
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\bin\Debug\net8.0\empaquetado.pdb
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.AssemblyInfoInputs.cache
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.AssemblyInfo.cs
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.csproj.CoreCompileInputs.cache
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.sourcelink.json
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.dll
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\refint\empaquetado.dll
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.pdb
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\empaquetado.genruntimeconfig.cache
+C:\Users\alejo\Documents\Documents\Gitmono\Dayl-mono-largo\empaquetado\obj\Debug\net8.0\ref\empaquetado.dll
