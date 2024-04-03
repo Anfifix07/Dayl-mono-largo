@@ -5,15 +5,18 @@
 {% endblock head %}
 {% block container %}
 
-    <div id="chart" class="chart" style="">
-                
-    </div>  
+    <div id="chart" class="graph-container">{{ grafico_general|safe }}</div>
 
+    <input type="text" id="producto-input" class="fieldx2" placeholder="Buscar producto...">
+    <div id="producto-lista"></div>
+    <div id="producto-info" style="display: none;"></div>
+    <input type="hidden" id="producto-id" name="producto_id">
+    <div id="graph-container" class="graph-container"></div>
 
 
 {% endblock container %}
 {% block script %}
-    {#apache Echarts es con que realizo las graficaciones#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script src="{% static 'admin/js/plotly.js' %}"></script>
     <script src="{% static 'admin/js/graficacion.js' %}"></script>
 {% endblock script %}

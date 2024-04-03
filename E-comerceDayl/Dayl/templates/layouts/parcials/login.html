@@ -5,6 +5,9 @@
         <div class="field"><label>Usuario</label><input type="text" name="email" required></div>
         <div class="field"><label>Contraseña</label><input type="password" name="password" required></div>
     </form>
+    <div style="text-align: center;">
+        <a href="{% url 'password_reset' %}">Olvide mi contraseña</a>
+    </div>
 </div>
 {% if messages %}
     {% for message in messages %}

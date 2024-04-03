@@ -24,10 +24,9 @@ def detalle_compra(request):
     metodo_pago = MetodosPago.objects.get(id=request.POST['metodo_pago'])
     if request.session.get("carrito", {}) and request.user.is_authenticated:
         cliente = Cliente.objects.get(user_id=request.user.id)
-        pedido = Pedidos(estado=False, cliente=cliente, situacion='En espera', metodo_pago=metodo_pago)
-        pedido.save()
         productos_json = json.dumps(request.session.get("carrito", {}))
-        pedido.productos.save(f'productos_{str(pedido.id)}.json', ContentFile(productos_json))
+        pedido = Pedidos(estado=False, cliente=cliente, situacion='En espera', metodo_pago=metodo_pago, productos = productos_json)
+        pedido.save()
         request.session["carrito"] = {}
         return redirect('factura:pago_paypal',id_pedido=pedido.id)   
   context = {"categorias": categorias,"subcategorias": subcategorias,'cliente':cliente,'metodos':metodos}
@@ -35,12 +34,8 @@ def detalle_compra(request):
 
 def pago_paypal(request, id_pedido):
   pedido = Pedidos.objects.get(id=id_pedido)
-  ruta_json = os.path.join(settings.MEDIA_ROOT, pedido.productos.name)
-  with open(ruta_json, 'r') as archivo_json:
-    contenido_json = archivo_json.read()
-  productos_dict = json.loads(contenido_json)
   host = request.get_host()
-  car_paypal = agregar_carrito(productos_dict)
+  car_paypal = agregar_carrito(pedido.productos)
   paypal_dict = {
   'business': settings.PAYPAL_RECEIVER_EMAIL,
   'amount': car_paypal['total_carrito'],
@@ -66,12 +61,8 @@ def paypal_cancel(request):
 def mostrar_factura(request,id_factura):
   factura= Factura.objects.get(id = id_factura)
   cliente = Cliente.objects.get(id = factura.cliente.id)
-  
-  ruta_json = os.path.join(settings.MEDIA_ROOT, factura.pedido.productos.name)
-  with open(ruta_json, 'r') as archivo_json:
-    contenido_json = archivo_json.read()
      
-  productos_dict = json.loads(contenido_json)
+  productos_dict = json.loads(factura.pedido.productos)
   print("ver aver", productos_dict)
   context = {
     'factura':factura,

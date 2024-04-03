@@ -39,6 +39,16 @@ $(document).ready(function() {
       $('.registro-modal').modal('show');
   });
 });
+//cambios yo//
+
+$(document).ready(function() {
+  $('#login-btn2').click(function() {
+      $('#registro-content').load('/cliente/login');
+      $('.registro-modal').modal('show');
+  });
+});
+// hasta aqui llega//
+
 $(document).ready(function() {
   $('#login-btn').click(function() {
       $('#registro-content').load('/cliente/login');
@@ -63,3 +73,71 @@ function toggleForm() {
     questionSection.style.display = 'block';
   }
 }
+
+
+
+
+$(document).ready(function() {
+  $('#producto-input').on('input', function() {
+      var searchTerm = $(this).val();
+      if (searchTerm.length > 3) {
+          $.ajax({
+              url: '/admin/API/producto_categoria/',
+              type: 'GET',
+              data: {
+                  'searchTerm': searchTerm
+              },
+              success: function(response) {
+                  var productos = JSON.parse(response);
+                  mostrarProductos(productos);
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error en la solicitud AJAX:', error);
+              }
+          });
+      } else {
+          $('#producto-lista').empty();
+      }
+  });
+  
+  function mostrarProductos(productos) {
+      $('#producto-lista').empty();
+  
+      if (productos.length > 0) {
+          productos.forEach(function(producto) {
+              var opcionProducto = $('<div class="opcion-producto" data-id="' + producto.id + '" data-nombre="' + producto.title + '" data-categoria="' + producto.category + '">' + producto.title + ' - ' + producto.category + '</div>');
+              opcionProducto.click(function() {
+                  var productoSeleccionado = $(this);
+                  $('#producto-input').val(productoSeleccionado.data('nombre'));
+                  enviarPeticion(producto.id)
+                  $('#producto-lista').empty();
+              });
+              $('#producto-lista').append(opcionProducto);
+          });
+      } else {
+          console.log('No se encontraron productos');
+      }
+  }
+  });
+
+$('div.search-bar > input').on('keypress', function(e) {
+  // Verificar si la tecla presionada es Enter
+  if (e.which == 13) {
+    var input = $(this).val();
+    var url = `/producto/search/${input}/`
+    window.location.href = url;
+  }
+});
+
+$('div.search-bar > button').click(function(){
+  var input = $('div.search-bar > input').val();
+  var url = `/producto/search/${input}/`
+  window.location.href = url;
+});
+$('li.search-bar > input').on('keypress',function(e){
+  if (e.which == 13) {
+    var input = $(this).val();
+    var url = `/producto/search/${input}/`
+    window.location.href = url;
+  }
+})

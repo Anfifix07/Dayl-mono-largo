@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '*',
-    "https://96c8-2800-484-de8f-7000-d54c-3f89-f3d4-4c15.ngrok-free.app",
+    ENV('NGROK'),
     ]
 
 
@@ -166,12 +166,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #para enviar el mesaje de confirmacion
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'dayl.medellin.antioquia@gmail.com'
-EMAIL_HOST_PASSWORD = 'ztmfcetxfhqlvwka'
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = ENV('EMAIL_BACKEND')
+EMAIL_HOST = ENV('EMAIL_HOST')
+EMAIL_PORT = ENV('EMAIL_PORT')
+EMAIL_HOST_USER = ENV('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = ENV('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = ENV('EMAIL_USE_TLS')
 
 #-#--Paypal settings--#-#
 PAYPAL_TEST = True
@@ -180,10 +180,10 @@ PAYPAL_RECEIVER_EMAIL = ENV('PAYPAL_RECEIVER_EMAIL')
 #-#--Cors settings--#-#
 
 CSRF_TRUSTED_ORIGINS = [
-     "https://96c8-2800-484-de8f-7000-d54c-3f89-f3d4-4c15.ngrok-free.app",
+     ENV('NGROK'),
 ]
 CORS_ALLOWED_ORIGINS = [
-    "https://96c8-2800-484-de8f-7000-d54c-3f89-f3d4-4c15.ngrok-free.app",
+    ENV('NGROK'),
     "http://localhost:3000",  # O la URL de tu frontend en desarrollo
     "http://localhost:8000",  # O la URL de tu backend en desarrollo
     "http://127.0.0.1:8000",

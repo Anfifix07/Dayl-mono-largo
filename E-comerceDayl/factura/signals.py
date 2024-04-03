@@ -30,11 +30,7 @@ def invalid_ipn_signal(sender, **kwargs):
 @receiver(post_save, sender=Pedidos)
 def pedido_modificar(sender,instance, *args, **kwargs):
   if instance.estado == True:
-    ruta_json = os.path.join(settings.MEDIA_ROOT, instance.productos.name)
-    with open(ruta_json, 'r') as archivo_json:
-      contenido_json = archivo_json.read()
-    productos_dict = json.loads(contenido_json)
-    car_paypal = agregar_carrito(productos_dict)
+    car_paypal = agregar_carrito(instance.productos)
     fact = Factura()
     fact.metodo_pago = instance.metodo_pago
     fact.total = car_paypal['total_carrito']

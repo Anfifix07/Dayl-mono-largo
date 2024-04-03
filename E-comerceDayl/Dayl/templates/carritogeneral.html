@@ -98,8 +98,11 @@
             </div>
 
         </div>
+        
+
       {% endfor %}
     </div>
+    
     <div class="contenedor sub carrito general">
         <table class="ui unstackable celled table summary-table">
             <tbody>
@@ -120,9 +123,17 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center;">
+                        {% if user.is_authenticated  %}
+                        
                         <div class="finish-button">
                             <a href="{% url 'factura:detalle_compra' %}"><button class="ui primary button" style="width: 60%; margin: 0 auto;">Finalizar Compra</button></a>
                         </div>
+                       
+                        {% else %}  
+                        <div class="user-buttons" style="justify-content: space-around;">
+                            <button class="blue-button out" id="login-btn2"><a href="#">Finalizar Compra</a></button>
+                        </div>
+                        {% endif %}
                     </td>
                 </tr>
             </tbody>

@@ -1,25 +1,63 @@
+function enviarPeticion(idProducto) {
+  const start = new Date();
+  const url = '/admin/graficaxproducto/';
+  const data = {
+      id_producto: idProducto,
+  };
 
-const getOptionChart = async () => {
-    try{
-        const response = await fetch("http://127.0.0.1:8000/admin/get_chart/");
-        return await response.json();
-    }catch (ex){
-        alert(ex);
+  $.ajax({
+      url: url,
+      type: 'GET',
+      data: data,
+      success: function(response) {
+          $('#graph-container').html(response);
+      },
+      error: function(xhr, status, error) {
+          console.log(error);
+      }
+  });
+
+}
+
+$(document).ready(function() {
+$('#producto-input').on('input', function() {
+    var searchTerm = $(this).val();
+    if (searchTerm.length > 3) {
+        $.ajax({
+            url: '/admin/API/producto_categoria/',
+            type: 'GET',
+            data: {
+                'searchTerm': searchTerm
+            },
+            success: function(response) {
+                var productos = JSON.parse(response);
+                mostrarProductos(productos);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', error);
+            }
+        });
+    } else {
+        $('#producto-lista').empty();
     }
-};
+});
 
-const initChart = async () => {
-    
-    
-    let chartDom = document.getElementById('chart')
-    const myChart=echarts.init(chartDom);
-    myChart.setOption(await getOptionChart());
-    myChart.resize();
-};
+function mostrarProductos(productos) {
+    $('#producto-lista').empty();
 
-window.addEventListener("load", async () =>{
-    await initChart();
-    setInterval(async () =>{
-        await initChart();
-    },2000);
+    if (productos.length > 0) {
+        productos.forEach(function(producto) {
+            var opcionProducto = $('<div class="opcion-producto" data-id="' + producto.id + '" data-nombre="' + producto.title + '" data-categoria="' + producto.category + '">' + producto.title + ' - ' + producto.category + '</div>');
+            opcionProducto.click(function() {
+                var productoSeleccionado = $(this);
+                $('#producto-input').val(productoSeleccionado.data('nombre'));
+                enviarPeticion(producto.id)
+                $('#producto-lista').empty();
+            });
+            $('#producto-lista').append(opcionProducto);
+        });
+    } else {
+        console.log('No se encontraron productos');
+    }
+}
 });

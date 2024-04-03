@@ -41,7 +41,7 @@ def imagenes_color(context,producto):
 def productos_categoria(productos,categoria):
     productosreturn = []
     for producto in productos:
-        if producto.subcategoria.categoria.nombre == categoria:
+        if producto.subcategoria.nombre == categoria:
             productosreturn.append(producto)
     return productosreturn
 @register.filter

@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from .decorators import only_admin_access
 from producto.models import *
 from django.core.serializers import serialize
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from .forms import ProductoForm, ColorForm, CategoriaForm, SubcategoriaForm, ProveedorForm
-from .custom_def import filtro_productos
+from .custom_def import filtro_productos, busqueda_x_semana, graficar_x_4, busqueda_x_id, ventas_4_semanas
 import json
 import random
 
@@ -15,15 +15,9 @@ import random
 
 @only_admin_access
 def index(request):
-    if 'temporales' in request.session:
-        del request.session['temporales']
-    filtros = request.GET.get('filtros')
-    busqueda = request.GET.get('busqueda')
-    productos = filtro_productos(filtros, busqueda)
-    if productos:
-        request.session['temporales'] = serialize('json', productos)
-        return JsonResponse({'productos': request.session['temporales']})
-    return render(request, 'admin/index.html', {'url': 'inicio'})
+    facturas = ventas_4_semanas(busqueda_x_semana())
+    graph_html = graficar_x_4(facturas)
+    return render(request, 'admin/graficacion.html', {'url': 'inicio','grafico_general':graph_html})
 
 
 def busqueda(request):
@@ -321,67 +315,46 @@ def proveedor_eliminar(request, id_proveedor):
     proveedor.delete()
     return redirect('admin:proveedor')
 
+@only_admin_access
+def graficax_producto(request):
+    id_producto = request.GET.get('id_producto')
+    facturas = busqueda_x_id(busqueda_x_semana(),id_producto)
+    graph_html = graficar_x_4(facturas)
+    return HttpResponse(graph_html)
 
-def get_chart(request):
-    colors = ['blue', 'orange', 'red', 'black', 'yellow', 'green', 'magenta', 'lightblue', 'purple', 'brown']
-    random_color = colors[random.randrange(0, (len(colors)-1))]
-    serie = []
-    counter = 0
-    producto = Producto.objects.all()
-   
-    while (counter < 7):
-        serie.append(random.randrange(100, 400))
-        counter += 1
+@only_admin_access
+def search_filters(request):
+    if 'temporales' in request.session:
+        del request.session['temporales']
+    if request.method == 'GET' and request.GET.get('searchFilter') != '':
+        filtros = request.GET.get('searchFilter').split(',')
+        busqueda = request.GET.get('searchValue')
+        print(busqueda)
+        print(filtros)
+        productos = filtro_productos(filtros,busqueda)
+    else:
+        busqueda = request.GET.get('searchValue')
+        productos = filtro_productos([],busqueda)
+    request.session['temporales'] = [producto.id for producto in productos]
+    return JsonResponse({'xd':'correcto'}, safe=False)
 
-    chart = {
-        'title': {
-        'text': 'general'
-        },
-        'tooltip': {
-        ' trigger': 'axis',
-        'axisPointer': {
-            'type': 'cross',
-                'label': {
-                    'backgroundColor': '#6a7985'
-                }
-            }
-        },
-    'legend': {
-        'data': ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-    },
-    'toolbox': {
-    'feature': {
-      'saveAsImage': {}
-    }
-  },
-  'grid': {
-    'left': '3%',
-    'right': '4%',
-    'bottom': '3%',
-    'containLabel': True
-  },
-        'xAxis': [
-            {
-                'type': "category",
-                'data': ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"]
-            }
-        ],
-        'yAxis': [
-            {
-                'type': "value"
-            }
-        ],
-        'series': [
-            {
-                'data': serie,
-                'type': "line",
-                'itemStyle': {
-                    'color': random_color
-                },
-                'lineStyle': {
-                    'color': random_color
-                }
-            }
-        ]
-    }
-    return JsonResponse(chart)
+@only_admin_access
+def filters_complete(request):
+    productos = [Producto.objects.get(id=i) for i in request.session['temporales']]
+    subcategorias = Subcategoria.objects.all()
+    proveedores = Proveedor.objects.all()
+    url = 'producto'
+    context = {'productos': productos,
+               'url': url,
+               'subcategorias': subcategorias,
+               'proveedores': proveedores}
+    return render(request, 'admin/producto.html', context)
+
+@only_admin_access
+def producto_categoria(request):
+    searchTerm = request.GET.get('searchTerm', '')
+    productos = Producto.objects.filter(nombre__icontains=searchTerm)
+    data = [{'title': producto.nombre, 'category': producto.subcategoria.nombre, 'id': producto.id} for producto in productos]
+    print(data)
+    json_data = json.dumps(data)
+    return JsonResponse(json_data, safe=False)

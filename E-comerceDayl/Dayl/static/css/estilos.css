@@ -672,7 +672,9 @@ header {
         flex-direction: column;
         font-family: 'Montserrat', sans-serif !important;
     }
-
+    .footer.modal {
+        flex-direction: row;
+    }
     .footer .logo-container {
         text-align: center;
         font-family: 'Montserrat', sans-serif !important;
@@ -1211,12 +1213,12 @@ div.dropdown-content > div.ui.grid.container{
   }
   
   .eight.wide.column.stackable .row h2 .discounted-price {
-    color: #98c3ff;
+    color: #ff2b73;
     font-size: xx-large;
   }
   
   .eight.wide.column.stackable .row h2 .original-price {
-    color: #a9b0ba;
+    color: #98c3ff;
     text-decoration: line-through;
     font-size: smaller;
   }

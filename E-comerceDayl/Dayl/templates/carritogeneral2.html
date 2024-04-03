@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+  Carro general
+{% endblock title %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/carritogeneral.css' %}">
+{% endblock head %}
+{% block content %}
+{% if request.session.carrito.items %}
+<div class="ui container carrito" id="contenedor-car-general">
+    <h1 class="titulo">Carrito de Compras</h1>
+    <div class="ui stackable grid">
+        
+        <div class="ten wide column">
+            <table class="ui unstackable celled table product-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                {% for key,value in request.session.carrito.items %}
+                <tbody>
+                    <tr data-producto-id="{{value.producto_id}}">
+                        <td>
+                            <div class="ui items">
+                                <div class="item">
+                                    <div class="ui small image">
+                                        <img class="img carrito" src="{{value.imagen}}" alt="Producto">
+                                    </div>
+                                    <div class="middle aligned content">
+                                        <h4>{{value.nombre}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="product-price" id="valor_unitario_{{value.producto_id}}">
+                            <h4>{{value.valor}}</h4>
+                        </td>
+                        <td class="quantity">
+                            <div class="ui action input">
+                                <button class="ui icon button decrease-btn" onclick="updateQuantity(this, -1)" id="gen-decrease-{{value.color_id}}"><i class="minus icon"></i></button>
+                                <input type="number" class="ui input focus" id="quantity-input" min="0" value="{{value.cantidad}}" oninput="updateSubtotal(this)">
+                                <button class="ui icon button increase-btn" onclick="updateQuantity(this, 1)"><i class="plus icon"></i></button>
+                            </div>
+                        </td>
+                        <td class="product-subtotal">
+                            <h4>{{value.acumulado}}</h4>
+                            <a href="{% url 'buycar:eliminar_producto' value.producto_id value.color_id %}"><button class="circular ui icon button">
+                                <i class="close icon"></i>
+                        </td>
+                    </tr>
+                    <!-- Agrega más filas para más productos -->
+                </tbody>
+                {% endfor %}
+                <tfoot>
+                    <tr>
+                        <th colspan="4">
+                            <div class="update-button-carrito">
+                                <button class="ui primary button" onclick="updateCart()">Actualizar Carrito</button>
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {% else %}
+        <div class="ui grid container" id="contenedor-car-general">
+            <div class="row blue">
+                <div class="sixteen wide column">
+                    <h3>No hay productos en el carrito</h3>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="sixteen wide column">
+            
+            
+        </div>
+        
+    </div>
+</div>
+<script src="{% static 'js/carritogeneral.js' %}"></script>
+{% endblock content %}
